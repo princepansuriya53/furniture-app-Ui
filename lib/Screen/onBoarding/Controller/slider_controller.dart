@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furniture_app/Constants/app_assets.dart';
+import 'package:furniture_app/Screen/Auth/logn_screen.dart';
 import 'package:get/get.dart';
 
 class OnboardingController extends GetxController {
@@ -35,8 +36,7 @@ class OnboardingController extends GetxController {
         curve: Curves.easeInOut,
       );
     } else {
-      // Navigate to main app or login screen
-      Get.toNamed('/home'); // Replace with your route
+      Get.to(LognScreen());
     }
   }
 
