@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:furniture_app/Screen/onBoarding/page_slider.dart';
+import 'package:furniture_app/Screen/onBoarding/onboarding.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import 'shared_prefrence_helper.dart';
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       builder: (_, child) {
         return GetMaterialApp(
           title: 'Dating App',
-          home: PageSlider(),
+          home: OnboardingScreen(),
           debugShowCheckedModeBanner: false,
         );
       },

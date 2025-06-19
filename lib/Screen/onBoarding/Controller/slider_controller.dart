@@ -1,7 +1,7 @@
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:furniture_app/Constants/app_assets.dart';
 import 'package:furniture_app/Screen/Auth/logn_screen.dart';
-import 'package:get/get.dart';
 
 class OnboardingController extends GetxController {
   final RxInt currentIndex = 0.obs;
@@ -32,11 +32,11 @@ class OnboardingController extends GetxController {
   void nextPage() {
     if (currentIndex.value < onboardingItems.length - 1) {
       pageController.nextPage(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
+        curve: Curves.easeInOutCubic,
+        duration: const Duration(milliseconds: 500),
       );
     } else {
-      Get.to(LognScreen());
+      Get.to(() => LognScreen());
     }
   }
 

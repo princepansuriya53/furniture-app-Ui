@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furniture_app/Common/text_constant.dart';
+import 'package:furniture_app/Common/widget_constant.dart';
 import 'package:furniture_app/Constants/app_assets.dart';
 import 'package:furniture_app/Screen/onBoarding/Controller/slider_controller.dart';
 import 'package:furniture_app/Theme/theme_controller.dart';
@@ -95,10 +96,10 @@ class OnboardingPage extends StatelessWidget {
             margin: EdgeInsets.only(right: 2.w),
             width: controller.currentIndex.value == index ? 24.w : 20.w,
             decoration: BoxDecoration(
+              shape: BoxShape.circle,
               color: controller.currentIndex.value == index
                   ? ThemeController().primaryColor.value
                   : Colors.white,
-              shape: BoxShape.circle,
             ),
           ),
         ),
@@ -107,42 +108,53 @@ class OnboardingPage extends StatelessWidget {
   }
 
   Widget buildNextButton(BuildContext context) {
-    return Obx(
-      () => SizedBox(
-        width: MediaQuery.sizeOf(context).width / 1.1,
-        child:
-            controller.currentIndex.value ==
-                controller.onboardingItems.length - 1
-            ? ElevatedButton(
-                onPressed: controller.nextPage,
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black,
-                  backgroundColor: const Color(0xFFFFC107),
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+    return Obx(() {
+      final isLast =
+          controller.currentIndex.value ==
+          controller.onboardingItems.length - 1;
+
+      return AnimatedSwitcher(
+        duration: const Duration(milliseconds: 500),
+        transitionBuilder: (child, animation) =>
+            ScaleTransition(scale: animation, child: child),
+        child: isLast
+            ? SizedBox(
+                width: Get.width,
+                child: screenPadding(
+                  child: ElevatedButton(
+                    key: const ValueKey('getStarted'),
+                    onPressed: controller.nextPage,
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.black,
+                      backgroundColor: const Color(0xFFFFC107),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      elevation: 2,
+                    ),
+                    child: TextConstant(
+                      fontSize: 16,
+                      title: 'Get started',
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                  elevation: 0,
-                ),
-                child: TextConstant(
-                  fontSize: 16,
-                  title: 'Get started',
-                  fontWeight: FontWeight.w600,
                 ),
               )
             : GestureDetector(
                 onTap: controller.nextPage,
+                key: const ValueKey('nextButton'),
                 child: Container(
                   width: 56,
                   height: 56,
                   decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
                     color: Color(0xFFFFC107),
+                    shape: BoxShape.circle,
                   ),
-                  child: const Icon(size: 24, Icons.arrow_forward),
+                  child: Icon(size: 24.sp, Icons.arrow_forward),
                 ),
               ),
-      ),
-    );
+      );
+    });
   }
 }
