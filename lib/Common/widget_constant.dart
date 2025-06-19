@@ -16,28 +16,34 @@ Widget screenPadding({EdgeInsets? customPadding, required Widget child}) {
     child: child,
   );
 }
+//----------------------------------------------------------//
 
 SizedBox heightBox(int height) {
   return SizedBox(height: height.h);
 }
+//----------------------------------------------------------//
 
 SizedBox widthBox(int width) {
   return SizedBox(width: width.h);
 }
 
+//----------------------------------------------------------//
 Widget svgIconWidget({
-  required String icon,
-  Color? color,
-  double height = 35,
-  double width = 35,
   BoxFit? fit,
+  Color? color,
+  double width = 35,
+  double height = 35,
+  required String icon,
 }) {
   return SvgPicture.asset(
     icon,
-    height: height.h,
     width: width.h,
+    height: height.h,
     fit: fit ?? BoxFit.cover,
-    colorFilter: ColorFilter.mode(color ?? Colors.white, BlendMode.srcIn),
+    colorFilter: ColorFilter.mode(
+      color ?? ThemeController().whiteColor,
+      BlendMode.srcIn,
+    ),
   );
 }
 
@@ -50,6 +56,7 @@ Widget backButton() {
   );
 }
 
+//----------------------------------------------------------//
 Future<DateTime?> pickDateTime(
   BuildContext context, {
   bool pickTime = false,
@@ -80,6 +87,7 @@ Future<DateTime?> pickDateTime(
   return selectedDate;
 }
 
+//----------------------------------------------------------//
 Widget loader({
   Color? color,
   double? size,
@@ -93,12 +101,13 @@ Widget loader({
     child: CircularProgressIndicator.adaptive(
       strokeWidth: strokeWidth ?? 5.w,
       valueColor: AlwaysStoppedAnimation<Color>(
-        color ?? themeController.primaryColor.value,
+        color ?? themeController.secondaryColors.value,
       ),
     ),
   );
 }
 
+//----------------------------------------------------------//
 Future<void> showConfirmationDialogue({
   required ThemeController themeController,
   required String title,
@@ -113,9 +122,7 @@ Future<void> showConfirmationDialogue({
     Dialog(
       alignment: Alignment.center,
       insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.r), // Rounded corners
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
       child: Padding(
         padding: EdgeInsets.all(24.w),
         child: Column(
@@ -159,14 +166,13 @@ Future<void> showConfirmationDialogue({
                                   ),
                                   side: WidgetStatePropertyAll(
                                     BorderSide(
-                                      color: themeController.primaryColor.value,
+                                      color:
+                                          themeController.secondaryColors.value,
                                     ),
                                   ),
                                   shape: WidgetStatePropertyAll(
                                     RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                        15.0,
-                                      ), // Adjust the radius here for rounded corners
+                                      borderRadius: BorderRadius.circular(15.r),
                                     ),
                                   ),
                                 ),
@@ -197,20 +203,20 @@ showCustomSnackBar({String? title, String? message}) {
 
 AutoSizeText autoSizeText(
   String text, {
-  FontWeight? fontWeight,
+  Color? color,
   int? maxLine,
   double? maxFontSize,
-  Color? color,
+  FontWeight? fontWeight,
 }) {
   return AutoSizeText(
     text,
-    style: textStyle(fontWeight: fontWeight ?? FontWeight.bold, color: color),
-    maxFontSize: maxFontSize ?? 14,
-    presetFontSizes: const [16, 15, 14, 13, 12, 11],
     minFontSize: 11,
     stepGranularity: 1,
     maxLines: maxLine ?? 1,
+    maxFontSize: maxFontSize ?? 14,
     overflow: TextOverflow.ellipsis,
+    presetFontSizes: const [16, 15, 14, 13, 12, 11],
+    style: textStyle(fontWeight: fontWeight ?? FontWeight.bold, color: color),
   );
 }
 
@@ -223,6 +229,11 @@ Future showCustomBottomSheet(
 }) async {
   await showModalBottomSheet(
     context: Get.context!,
+    isScrollControlled: true,
+    enableDrag: isDismissibleBox,
+    isDismissible: isDismissibleBox,
+    showDragHandle: isDismissibleBox,
+    backgroundColor: themeController.greyColor,
     builder: (context) {
       return Padding(
         padding: MediaQuery.of(context).viewInsets,
@@ -242,11 +253,6 @@ Future showCustomBottomSheet(
                         fontWeight: FontWeight.bold,
                         fontSize: fontSize,
                       ),
-                      // IconButton(
-                      //     onPressed: () {
-                      //       Get.back();
-                      //     },
-                      //     icon: Icon(LucideIcons.x))
                     ],
                   ),
                   ...children,
@@ -257,32 +263,28 @@ Future showCustomBottomSheet(
         ),
       );
     },
-    isScrollControlled: true,
-    isDismissible: isDismissibleBox,
-    showDragHandle: isDismissibleBox,
-    enableDrag: isDismissibleBox,
-    backgroundColor: themeController.greyColor,
   );
 }
 
 showImagePickerSheet({
-  required ThemeController themeController,
   required VoidCallback onTapCamera,
   required VoidCallback onTapGallery,
+  required ThemeController themeController,
 }) {
   Get.bottomSheet(
     Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: themeController.blackColor,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            'Choose Image Source',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          TextConstant(
+            fontSize: 18.sp,
+            title: 'Choose Image Source',
+            fontWeight: FontWeight.bold,
           ),
           heightBox(20),
           Row(
@@ -491,52 +493,34 @@ Widget elevatedButton({
   double? height,
   double? fontSize,
   Color? textColor,
-  Color? backGroundColor,
-  bool? isGradient = true,
-  bool? isBorder = false,
-  required String title,
   Gradient? gradient,
+  required String title,
+  Color? backGroundColor,
+  bool? isBorder = false,
+  bool? isGradient = true,
   EdgeInsetsGeometry? padding,
   List<Color>? colorsGradient,
   required void Function()? onPressed,
 }) {
+  Get.lazyPut(() => ThemeController());
   ThemeController themeController = Get.find<ThemeController>();
-
-  // fallback gradient if none supplied
-
   return SizedBox(
     height: height ?? 50.h,
     width: width ?? Get.width,
-    child: DecoratedBox(
-      decoration: isGradient == true
-          ? BoxDecoration(borderRadius: BorderRadius.circular(4.r))
-          : BoxDecoration(
-              border: isBorder == true
-                  ? Border.all(width: 1.w, color: themeController.primaryColor.value)
-                  : null,
-              color:
-                  backGroundColor ??
-                  themeController.greyColor.withValues(alpha: 0.2),
-              borderRadius: BorderRadius.circular(4.r),
-            ),
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ButtonStyle(
-          // make the ElevatedButton itself transparent
-          backgroundColor: WidgetStatePropertyAll(Colors.transparent),
-          shadowColor: WidgetStatePropertyAll(Colors.transparent),
-          elevation: WidgetStatePropertyAll(0),
-          padding: padding != null ? WidgetStatePropertyAll(padding) : null,
-          shape: WidgetStatePropertyAll(
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
-          ),
+    child: ElevatedButton(
+      onPressed: onPressed,
+      style: ButtonStyle(
+        foregroundColor: WidgetStatePropertyAll(themeController.blackColor),
+        backgroundColor: WidgetStatePropertyAll(themeController.primaryColor),
+        padding: padding != null ? WidgetStatePropertyAll(padding) : null,
+        shape: WidgetStatePropertyAll(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
         ),
-        child: TextConstant(
-          title: title,
-          color: textColor ?? Colors.white,
-          fontSize: fontSize ?? 16,
-          fontWeight: FontWeight.w500,
-        ),
+      ),
+      child: TextConstant(
+        title: title,
+        fontSize: fontSize ?? 16.sp,
+        fontWeight: FontWeight.w600,
       ),
     ),
   );

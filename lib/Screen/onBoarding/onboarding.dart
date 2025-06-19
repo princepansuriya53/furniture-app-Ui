@@ -20,7 +20,7 @@ class OnboardingScreenState extends State<OnboardingScreen> {
     Get.put(OnboardingController());
 
     Future.delayed(const Duration(seconds: 3), () {
-      Get.to(() => const PageSlider());
+      Get.offAll(() => const PageSlider());
     });
   }
 

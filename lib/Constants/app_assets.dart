@@ -6,5 +6,7 @@ class AppAssets {
   static const String image1 = '${images}image_page1.png';
   static const String image2 = '${images}image_page2.png';
   static const String image3 = '${images}image_page3.png';
+  static const String appleLogo = '${icons}apple_logo.png';
+  static const String googleLogo = '${icons}google_logo.png';
   static const String imageShadow = '${images}image_shadow.png';
 }

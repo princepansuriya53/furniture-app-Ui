@@ -1,32 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furniture_app/Theme/theme_service.dart';
 import 'package:get/get.dart';
 
 class ThemeController extends GetxController {
   final RxBool isDarkMode = false.obs;
   final ThemeService themeService = ThemeService();
-  final Rx<Color> primaryColor = const Color(0xFFFCD240).obs;
+  final Rx<Color> secondaryColors = const Color.fromARGB(
+    255,
+    223,
+    198,
+    108,
+  ).obs;
 
   Color lightSecondaryColour = const Color(0xFF3B82F6);
   Color darkSecondaryColour = const Color(0x4D0A1F44);
 
   final Color greyColor = Colors.grey;
   final Color blackColor = Colors.black;
+  final Color primaryColor = Color(0xFFFCD240);
   final Color whiteColor = Colors.white;
   final Color offWhiteColor = const Color(0xFFFFF9E4);
 
   final Color appBar1Color = const Color(0xFF0F172A);
   final Color appBar2Color = const Color(0xFF1E3A8A);
-  final Color appBar3Color = const Color(0xFF172554);
-  final Color borderColor = const Color(0xFF3B82F6);
-  final Color dialogBGColor1 = const Color(0xFF1A1A2E);
-  final Color dialogBGColor2 = const Color(0xFF16213E);
-
-  final Color otherUserColor1 = const Color(0xFF374151);
-  final Color otherUserColor2 = const Color(0xFF1F2937);
-  final Color myUserColor1 = const Color(0xFF3B82F6);
-  final Color myUserColor2 = const Color(0xFF60A5FA);
 
   @override
   void onInit() {
@@ -38,7 +36,7 @@ class ThemeController extends GetxController {
     isDarkMode.value = await themeService.loadIsDarkMode();
     Color? savedColor = await themeService.loadPrimaryColor();
     if (savedColor != null) {
-      primaryColor.value = savedColor;
+      secondaryColors.value = savedColor;
     }
     applyColorSet1();
     updateTheme();
@@ -53,7 +51,7 @@ class ThemeController extends GetxController {
   }
 
   void setPrimaryColor(Color color) async {
-    primaryColor.value = color;
+    secondaryColors.value = color;
     await themeService.savePrimaryColor(color);
     updateTheme();
   }
@@ -77,7 +75,7 @@ class ThemeController extends GetxController {
   }
 
   void applyColorSet1() {
-    primaryColor.value = blackColor;
+    secondaryColors.value = blackColor;
     lightSecondaryColour = offWhiteColor;
     darkSecondaryColour = const Color(0x4D0A1F44);
   }
@@ -85,12 +83,14 @@ class ThemeController extends GetxController {
   Color get currentSecondaryColour =>
       isDarkMode.value ? darkSecondaryColour : lightSecondaryColour;
 
+  //----------------------------------------------------------------------------------------------------------//
+
   ThemeData get lightTheme => ThemeData(
     brightness: Brightness.light,
-    primaryColor: primaryColor.value,
-    scaffoldBackgroundColor: const Color(0xFFF0F1F3),
+    primaryColor: secondaryColors.value,
+    scaffoldBackgroundColor: whiteColor,
     dialogTheme: DialogThemeData(
-      backgroundColor: const Color(0xFFF0F1F3),
+      backgroundColor: whiteColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
     ),
     textSelectionTheme: TextSelectionThemeData(
@@ -103,22 +103,22 @@ class ThemeController extends GetxController {
       shadowColor: greyColor.withAlpha(80),
     ),
     colorScheme: ColorScheme.light(
-      primary: primaryColor.value,
+      primary: secondaryColors.value,
       secondary: lightSecondaryColour,
     ),
-    inputDecorationTheme: const InputDecorationTheme(
+    inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: Colors.white,
+      fillColor: whiteColor,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(primaryColor.value),
+        backgroundColor: WidgetStateProperty.all(secondaryColors.value),
       ),
     ),
     hintColor: blackColor,
     checkboxTheme: CheckboxThemeData(
       checkColor: WidgetStateProperty.all(whiteColor),
-      overlayColor: WidgetStateProperty.all(primaryColor.value),
+      overlayColor: WidgetStateProperty.all(secondaryColors.value),
     ),
     cardTheme: CardThemeData(
       elevation: 4,
@@ -126,24 +126,16 @@ class ThemeController extends GetxController {
       margin: EdgeInsets.zero,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     ),
-    listTileTheme: ListTileThemeData(
-      tileColor: const Color(0xFFFFFFFF),
-      selectedColor: primaryColor.value,
-      textColor: blackColor,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      contentPadding: const EdgeInsets.symmetric(
-        horizontal: 16.0,
-        vertical: 8.0,
-      ),
-    ),
   );
+
+  //----------------------------------------------------------------------------------------------------------//
 
   ThemeData get darkTheme => ThemeData(
     brightness: Brightness.dark,
     textSelectionTheme: TextSelectionThemeData(
       selectionHandleColor: whiteColor,
     ),
-    primaryColor: primaryColor.value,
+    primaryColor: secondaryColors.value,
     scaffoldBackgroundColor: blackColor,
     dialogTheme: DialogThemeData(
       backgroundColor: blackColor,
@@ -153,10 +145,10 @@ class ThemeController extends GetxController {
       backgroundColor: blackColor,
       systemOverlayStyle: SystemUiOverlayStyle.light,
       elevation: 0.5,
-      shadowColor: Colors.black.withAlpha(80),
+      shadowColor: blackColor.withAlpha(80),
     ),
     colorScheme: ColorScheme.dark(
-      primary: primaryColor.value,
+      primary: secondaryColors.value,
       secondary: darkSecondaryColour,
     ),
     inputDecorationTheme: InputDecorationTheme(
@@ -165,7 +157,7 @@ class ThemeController extends GetxController {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(primaryColor.value),
+        backgroundColor: WidgetStateProperty.all(secondaryColors.value),
       ),
     ),
     hintColor: greyColor,
@@ -173,21 +165,11 @@ class ThemeController extends GetxController {
       checkColor: WidgetStateProperty.all(blackColor),
     ),
     cardTheme: CardThemeData(
-      color: const Color(0xFF1E1E1E),
-      shadowColor: Colors.black.withAlpha(80),
+      color: blackColor,
+      shadowColor: blackColor.withAlpha(80),
       elevation: 4,
       margin: EdgeInsets.zero,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-    ),
-    listTileTheme: ListTileThemeData(
-      tileColor: const Color(0xFF1E1E1E),
-      selectedColor: primaryColor.value,
-      textColor: whiteColor,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      contentPadding: const EdgeInsets.symmetric(
-        horizontal: 16.0,
-        vertical: 8.0,
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
     ),
   );
 }

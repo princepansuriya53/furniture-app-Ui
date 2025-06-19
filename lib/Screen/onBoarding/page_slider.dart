@@ -1,3 +1,4 @@
+import 'package:furniture_app/Theme/theme_controller.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:furniture_app/Screen/onBoarding/Controller/slider_controller.dart';
@@ -9,15 +10,16 @@ class PageSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final OnboardingController controller = Get.put(OnboardingController());
+    final ThemeController themeController = ThemeController();
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: themeController.blackColor,
       body: Column(
         children: [
           Expanded(
             child: PageView.builder(
               controller: controller.pageController,
-              physics: const BouncingScrollPhysics(),
+              physics: NeverScrollableScrollPhysics(),
               onPageChanged: controller.onPageChanged,
               itemCount: controller.onboardingItems.length,
               itemBuilder: (context, index) {

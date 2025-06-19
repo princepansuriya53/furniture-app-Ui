@@ -62,7 +62,7 @@ TextStyle textStyle({
   FontStyle? fontStyle,
   TextDecoration? textDecoration,
 }) {
-  return GoogleFonts.roboto(
+  return GoogleFonts.poppins(
     color: color,
     height: height ?? 0,
     decoration: textDecoration,

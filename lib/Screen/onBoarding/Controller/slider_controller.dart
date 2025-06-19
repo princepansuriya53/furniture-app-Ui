@@ -10,22 +10,22 @@ class OnboardingController extends GetxController {
 
   final List<OnboardingItem> onboardingItems = [
     OnboardingItem(
+      imagePath: AppAssets.image1,
       title: "New designs\neveryday",
       description:
           "Shopee adds new designs every day. Explore and find\nthe best furniture for your home and offices.",
-      imagePath: AppAssets.image1,
     ),
     OnboardingItem(
+      imagePath: AppAssets.image2,
       title: "Minimal Look\nBetter quality",
       description:
           "Shopee adds new designs every day. Explore and find\nthe best furniture for your home and offices.",
-      imagePath: AppAssets.image2,
     ),
     OnboardingItem(
+      imagePath: AppAssets.image3,
       title: "Fastest home\ndelivery",
       description:
           "Shopee adds new designs every day. Explore and find\nthe best furniture for your home and offices.",
-      imagePath: AppAssets.image3,
     ),
   ];
 
@@ -36,7 +36,7 @@ class OnboardingController extends GetxController {
         duration: const Duration(milliseconds: 500),
       );
     } else {
-      Get.to(() => LognScreen());
+      Get.offAll(() => LognScreen());
     }
   }
 
@@ -53,12 +53,12 @@ class OnboardingController extends GetxController {
 
 class OnboardingItem {
   final String title;
-  final String description;
   final String imagePath;
+  final String description;
 
   OnboardingItem({
     required this.title,
-    required this.description,
     required this.imagePath,
+    required this.description,
   });
 }

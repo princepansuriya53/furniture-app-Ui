@@ -98,7 +98,7 @@ class OnboardingPage extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: controller.currentIndex.value == index
-                  ? ThemeController().primaryColor.value
+                  ? ThemeController().secondaryColors.value
                   : Colors.white,
             ),
           ),
@@ -108,6 +108,7 @@ class OnboardingPage extends StatelessWidget {
   }
 
   Widget buildNextButton(BuildContext context) {
+    final ThemeController themeController = ThemeController();
     return Obx(() {
       final isLast =
           controller.currentIndex.value ==
@@ -125,16 +126,16 @@ class OnboardingPage extends StatelessWidget {
                     key: const ValueKey('getStarted'),
                     onPressed: controller.nextPage,
                     style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.black,
-                      backgroundColor: const Color(0xFFFFC107),
+                      elevation: 2,
+                      foregroundColor: themeController.blackColor,
+                      backgroundColor: themeController.primaryColor,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      elevation: 2,
                     ),
                     child: TextConstant(
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       title: 'Get started',
                       fontWeight: FontWeight.w600,
                     ),
