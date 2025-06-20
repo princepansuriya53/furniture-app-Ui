@@ -1,11 +1,10 @@
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'Controller/verify_controller.dart';
 import 'package:furniture_app/Common/text_constant.dart';
 import 'package:furniture_app/Common/widget_constant.dart';
 import 'package:furniture_app/Theme/theme_controller.dart';
-import 'package:get/get.dart';
-
-import 'Controller/verify_controller.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class VerificationScreen extends StatelessWidget {
   final VerificationController controller = Get.put(VerificationController());
@@ -16,31 +15,30 @@ class VerificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     ThemeController themeController = ThemeController();
     return Scaffold(
-      appBar: AppBar(
+      appBar: commonAppbar(
+        title: '',
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Get.back(),
-        ),
+        themeController: themeController,
       ),
       body: screenPadding(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            heightBox(50),
             TextConstant(
-              fontSize: 18,
+              fontSize: 18.sp,
               title: "Verify it's you",
               fontWeight: FontWeight.bold,
             ),
             heightBox(8),
             TextConstant(
-              fontSize: 12,
+              fontSize: 12.sp,
               color: themeController.greyColor.withValues(alpha: 0.5),
               title:
                   "We have sent a verification code to your email,\nplease enter the code below.",
             ),
-
-            SizedBox(height: 40),
+            heightBox(40),
             Center(
               child: Obx(
                 () => Row(
@@ -48,22 +46,26 @@ class VerificationScreen extends StatelessWidget {
                   children: List.generate(6, (index) {
                     bool isFilled = index < controller.enteredCode.value.length;
                     return Container(
-                      width: 40.w,
-                      height: 40.h,
+                      width: 45.w,
+                      height: 45.h,
                       decoration: BoxDecoration(
                         border: Border.all(
                           width: 2,
-                          color: isFilled ? Colors.amber : Colors.grey[300]!,
+                          color: isFilled
+                              ? themeController.primaryColor
+                              : themeController.greyColor.withValues(
+                                  alpha: 0.4,
+                                ),
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Center(
-                        child: Text(
-                          isFilled ? controller.enteredCode.value[index] : '',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        child: TextConstant(
+                          fontSize: 24.sp,
+                          fontWeight: FontWeight.bold,
+                          title: isFilled
+                              ? controller.enteredCode.value[index]
+                              : '',
                         ),
                       ),
                     );
@@ -74,100 +76,66 @@ class VerificationScreen extends StatelessWidget {
             heightBox(20),
             Center(
               child: Obx(
-                () => Text(
-                  "You can resend the code after 1 minute ( 00:${controller.resendTimer.value.toString().padLeft(2, '0')} )",
-                  style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                () => TextConstant(
+                  fontSize: 14,
+                  color: themeController.greyColor.withValues(alpha: 0.6),
+                  title:
+                      "You can resend the code after 1 minute ( 00:${controller.resendTimer.value.toString().padLeft(2, '0')} )",
                 ),
               ),
             ),
-
-            SizedBox(height: 40),
-
-            // Confirm button
-            Container(
+            heightBox(40),
+            SizedBox(
+              height: 50.h,
               width: double.infinity,
-              height: 56,
               child: ElevatedButton(
                 onPressed: controller.confirmCode,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.amber,
-                  foregroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
                   elevation: 0,
+                  backgroundColor: themeController.primaryColor,
+                  foregroundColor: themeController.blackColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.r),
+                  ),
                 ),
-                child: Text(
-                  'Confirm',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                child: TextConstant(
+                  fontSize: 18.sp,
+                  title: 'Confirm',
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
-
             Spacer(),
-
-            // Custom numeric keypad
-            _buildNumericKeypad(),
-
-            SizedBox(height: 40),
+            buildNumericKeypad(),
+            heightBox(20),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildNumericKeypad() {
-    return Container(
-      child: Column(
-        children: [
-          // Row 1: 1, 2, 3
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildKeypadButton('1'),
-              _buildKeypadButton('2'),
-              _buildKeypadButton('3'),
-            ],
-          ),
-          SizedBox(height: 20),
+  Widget buildNumericKeypad() {
+    final keys = [
+      ['1', '2', '3'],
+      ['4', '5', '6'],
+      ['7', '8', '9'],
+      ['*', '0', '⌫'],
+    ];
 
-          // Row 2: 4, 5, 6
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildKeypadButton('4'),
-              _buildKeypadButton('5'),
-              _buildKeypadButton('6'),
-            ],
-          ),
-          SizedBox(height: 20),
-
-          // Row 3: 7, 8, 9
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildKeypadButton('7'),
-              _buildKeypadButton('8'),
-              _buildKeypadButton('9'),
-            ],
-          ),
-          SizedBox(height: 20),
-
-          // Row 4: *, 0, backspace
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildKeypadButton('*'),
-              _buildKeypadButton('0'),
-              _buildKeypadButton('⌫', isBackspace: true),
-            ],
-          ),
-        ],
-      ),
+    return Column(
+      children: List.generate(keys.length, (rowIndex) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: List.generate(keys[rowIndex].length, (colIndex) {
+            String key = keys[rowIndex][colIndex];
+            return buildKeypadButton(key, isBackspace: key == '⌫');
+          }),
+        );
+      }),
     );
   }
 
-  Widget _buildKeypadButton(String text, {bool isBackspace = false}) {
+  Widget buildKeypadButton(String text, {bool isBackspace = false}) {
     return GestureDetector(
       onTap: () {
         if (isBackspace) {
@@ -177,21 +145,12 @@ class VerificationScreen extends StatelessWidget {
         }
       },
       child: Container(
-        width: 80,
-        height: 80,
-        decoration: BoxDecoration(
-          color: Colors.transparent,
-          borderRadius: BorderRadius.circular(40),
-        ),
+        width: 80.w,
+        height: 60.h,
+        margin: const EdgeInsets.all(8),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.r)),
         child: Center(
-          child: Text(
-            text,
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.w400,
-              color: Colors.black,
-            ),
-          ),
+          child: TextConstant(title: text, fontSize: 28.sp),
         ),
       ),
     );

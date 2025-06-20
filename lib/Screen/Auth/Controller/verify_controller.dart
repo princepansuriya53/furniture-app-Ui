@@ -22,19 +22,18 @@ class VerificationController extends GetxController {
 
   void confirmCode() {
     if (enteredCode.value.length == 6) {
-      // Handle verification logic here
       Get.snackbar(
         'Success',
-        'Code verified: ${enteredCode.value}',
-        backgroundColor: Colors.green,
         colorText: Colors.white,
+        backgroundColor: Colors.green,
+        'Code verified: ${enteredCode.value}',
       );
     } else {
       Get.snackbar(
         'Error',
-        'Please enter complete 6-digit code',
-        backgroundColor: Colors.red,
         colorText: Colors.white,
+        backgroundColor: Colors.red,
+        'Please enter complete 6-digit code',
       );
     }
   }
@@ -44,9 +43,10 @@ class VerificationController extends GetxController {
     resendTimer.value = 60;
     Get.snackbar(
       'Code Sent',
-      'Verification code has been resent',
-      backgroundColor: Colors.blue,
       colorText: Colors.white,
+      backgroundColor: Colors.blue,
+      'Verification code has been resent',
     );
   }
+  
 }
