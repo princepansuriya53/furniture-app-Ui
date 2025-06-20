@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:furniture_app/Screen/Auth/biometric_screen.dart';
+import 'package:furniture_app/Screen/Auth/Sign%20In/biometric_screen.dart';
 import 'package:get/get.dart';
 
 class VerificationController extends GetxController {

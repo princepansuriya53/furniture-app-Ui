@@ -1,43 +1,56 @@
+import 'package:get/get.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:furniture_app/Common/text_constant.dart';
-import 'package:furniture_app/Common/textfield_constant.dart';
-import 'package:furniture_app/Common/widget_constant.dart';
-import 'package:furniture_app/Constants/app_assets.dart';
-import 'package:furniture_app/Screen/Auth/verify_screen.dart';
-import 'package:furniture_app/Theme/theme_controller.dart';
-import 'package:get/get.dart';
-import 'package:get/utils.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:furniture_app/Common/text_constant.dart';
+import 'package:furniture_app/Constants/app_assets.dart';
+import 'package:furniture_app/Theme/theme_controller.dart';
+import 'package:furniture_app/Common/widget_constant.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:furniture_app/Common/textfield_constant.dart';
+import 'package:furniture_app/Screen/Auth/Sign%20Up/congo_screen.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class RegistrionScreen extends StatelessWidget {
+  const RegistrionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final ThemeController themeController = ThemeController();
+
     return Scaffold(
+      appBar: commonAppbar(
+        title: "",
+        elevation: 0,
+        themeController: themeController,
+      ),
+
       body: screenPadding(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              heightBox(150),
+              heightBox(20),
               TextConstant(
+                softWrap: true,
                 fontSize: 30.sp,
-                title: 'Hi there!',
                 fontWeight: FontWeight.w500,
+                title: 'Create your arino account',
               ),
-              TextConstant(
-                color: themeController.greyColor,
-                title: 'Welcome back, Sign in to your account',
-              ),
-              heightBox(80),
+              heightBox(15),
               TextFieldConstant(
                 hintText: 'Email',
                 prefixIcon: Icon(
                   LucideIcons.mail,
+                  color: themeController.greyColor,
+                ),
+                textInputAction: TextInputAction.next,
+                keyboardType: TextInputType.emailAddress,
+              ),
+              heightBox(15),
+              TextFieldConstant(
+                hintText: 'Username',
+                prefixIcon: Icon(
+                  LucideIcons.user,
                   color: themeController.greyColor,
                 ),
                 textInputAction: TextInputAction.next,
@@ -67,9 +80,9 @@ class LoginScreen extends StatelessWidget {
               ),
               heightBox(50),
               elevatedButton(
-                title: 'Sign In',
+                title: 'Sign Up',
                 onPressed: () {
-                  Get.to(() => VerificationScreen());
+                  Get.to(() => CongoScreen());
                 },
               ),
               heightBox(30),
@@ -136,20 +149,21 @@ class LoginScreen extends StatelessWidget {
               Center(
                 child: RichText(
                   text: TextSpan(
-                    text: "Don't have an account? ",
+                    text: "Already have an account? ",
                     style: TextStyle(
                       fontSize: 13.sp,
                       color: themeController.greyColor,
                     ),
                     children: [
                       TextSpan(
-                        text: 'Sign up',
+                        text: 'Sign In',
                         style: TextStyle(
                           fontSize: 15.sp,
                           fontWeight: FontWeight.bold,
                           color: themeController.blackColor,
                         ),
-                        recognizer: TapGestureRecognizer()..onTap = () {},
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () => Get.back(),
                       ),
                     ],
                   ),

@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeService {
   static const String _keyIsDarkMode = 'isDarkMode';
-  static const String _keyPrimaryColor = 'primaryColor';
+  static const String keyPrimaryColor = 'primaryColor';
 
   // Load saved theme mode (dark or light)
   Future<bool> loadIsDarkMode() async {
@@ -21,13 +21,13 @@ class ThemeService {
   // Load primary color
   Future<Color?> loadPrimaryColor() async {
     final prefs = await SharedPreferences.getInstance();
-    final int? colorValue = prefs.getInt(_keyPrimaryColor);
+    final int? colorValue = prefs.getInt(keyPrimaryColor);
     return colorValue != null ? Color(colorValue) : null;
   }
 
   // Save primary color
   Future<void> savePrimaryColor(Color color) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt(_keyPrimaryColor, color.value);
+    await prefs.setInt(keyPrimaryColor, color.value);
   }
 }

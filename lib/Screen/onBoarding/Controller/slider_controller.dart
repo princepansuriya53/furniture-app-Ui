@@ -1,4 +1,4 @@
-import 'package:furniture_app/Screen/Auth/logn_screen.dart';
+import 'package:furniture_app/Screen/Auth/Sign%20In/logn_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:furniture_app/Constants/app_assets.dart';
