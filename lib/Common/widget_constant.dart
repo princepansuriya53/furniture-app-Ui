@@ -1,11 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:furniture_app/Common/text_constant.dart';
 import 'package:furniture_app/Theme/theme_controller.dart';
 import 'package:get/get.dart';
-import 'package:lucide_icons/lucide_icons.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 
 enum Processing { done, waiting, error }
@@ -49,10 +49,8 @@ Widget svgIconWidget({
 
 Widget backButton() {
   return GestureDetector(
-    onTap: () {
-      Get.back();
-    },
-    child: Icon(size: 28, LucideIcons.chevronLeft),
+    onTap: () => Get.back(),
+    child: Icon(size: 20.sp, CupertinoIcons.arrow_left),
   );
 }
 
@@ -407,13 +405,13 @@ class ProfileAvatar extends StatelessWidget {
 
 class CustomBottomSheet {
   static void show({
+    double? height,
     required Widget child,
-    bool isDismissible = true,
+    required String title,
     bool enableDrag = true,
     Color? backgroundColor,
+    bool isDismissible = true,
     double? borderRadius = 20,
-    double? height,
-    required String title,
   }) {
     showModalBottomSheet(
       context: Get.context!,
@@ -498,29 +496,29 @@ Widget elevatedButton({
   Color? backGroundColor,
   bool? isBorder = false,
   bool? isGradient = true,
-  EdgeInsetsGeometry? padding,
   List<Color>? colorsGradient,
+  EdgeInsetsGeometry? padding,
   required void Function()? onPressed,
 }) {
   Get.lazyPut(() => ThemeController());
+
   ThemeController themeController = Get.find<ThemeController>();
+
   return SizedBox(
     height: height ?? 50.h,
     width: width ?? Get.width,
     child: ElevatedButton(
       onPressed: onPressed,
-      style: ButtonStyle(
-        foregroundColor: WidgetStatePropertyAll(themeController.blackColor),
-        backgroundColor: WidgetStatePropertyAll(themeController.primaryColor),
-        padding: padding != null ? WidgetStatePropertyAll(padding) : null,
-        shape: WidgetStatePropertyAll(
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
-        ),
+      style: ElevatedButton.styleFrom(
+        elevation: 0,
+        backgroundColor: themeController.primaryColor,
+        foregroundColor: themeController.blackColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
       child: TextConstant(
         title: title,
-        fontSize: fontSize ?? 16.sp,
         fontWeight: FontWeight.w600,
+        fontSize: fontSize ?? 16.sp,
       ),
     ),
   );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:furniture_app/Screen/Auth/biometric_screen.dart';
 import 'package:get/get.dart';
 
 class VerificationController extends GetxController {
@@ -28,6 +29,7 @@ class VerificationController extends GetxController {
         backgroundColor: Colors.green,
         'Code verified: ${enteredCode.value}',
       );
+      Get.to(() => BiometricScreen());
     } else {
       Get.snackbar(
         'Error',
@@ -48,5 +50,4 @@ class VerificationController extends GetxController {
       'Verification code has been resent',
     );
   }
-  
 }
