@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furniture_app/Common/text_constant.dart';
 import 'package:furniture_app/Common/widget_constant.dart';
-import 'package:furniture_app/Constants/app_assets.dart';
 import 'package:furniture_app/Screen/onBoarding/Controller/slider_controller.dart';
 import 'package:furniture_app/Theme/theme_controller.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
@@ -21,65 +20,72 @@ class OnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeController themeController = ThemeController();
     return Stack(
-      alignment: Alignment.center,
       children: [
-        Image.asset(
-          item.imagePath,
+        Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Container(
+              width: Get.width,
+              height: Get.height,
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: AssetImage(item.imagePath),
+                ),
+              ),
+            ),
+            Container(
+              height: 350,
+              width: Get.width,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [
+                    themeController.blackColor.withValues(alpha: 0.9),
+                    themeController.blackColor.withValues(alpha: 0.3),
+                    themeController.blackColor.withValues(alpha: 0.01),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+
+        Container(
           width: Get.width,
           height: Get.height,
-          fit: BoxFit.fill,
-          errorBuilder: (context, error, stackTrace) {
-            return Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: Colors.white.withValues(alpha: 0.2),
+          padding: EdgeInsets.fromLTRB(20.w, 110.h, 20.h, 80.h),
+
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                item.title,
+                style: GoogleFonts.robotoFlex(
+                  height: 0,
+                  fontSize: 40.sp,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-              child: const Icon(Icons.image, size: 100, color: Colors.white),
-            );
-          },
-        ),
-        Positioned(
-          top: 100.h,
-          left: 25.w,
-          child: Text(
-            item.title,
-            style: GoogleFonts.robotoFlex(
-              height: 0,
-              fontSize: 40.sp,
-              fontWeight: FontWeight.w500,
-              shadows: [BoxShadow(blurRadius: 1, offset: Offset(1.5, 1.5))],
-            ),
-          ),
-        ),
-        Positioned(
-          top: 200.h,
-          left: 25.w,
-          child: SizedBox(
-            width: MediaQuery.sizeOf(context).width / .5,
-            child: TextConstant(
-              maxLines: 4,
-              fontSize: 15.sp,
-              title: item.description,
-              color: ThemeController().whiteColor,
-            ),
-          ),
-        ),
-        Positioned(top: 250.h, left: 25.w, child: buildPageIndicator()),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Image.asset(
-            fit: BoxFit.fill,
-            width: Get.width,
-            height: Get.height,
-            AppAssets.imageShadow,
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(bottom: 100.h),
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: buildNextButton(context),
+              heightBox(10),
+              TextConstant(
+                softWrap: true,
+                fontSize: 15.sp,
+                title: item.description,
+                color: ThemeController().whiteColor,
+              ),
+              heightBox(10),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: buildPageIndicator(),
+              ),
+              Spacer(),
+              Center(child: buildNextButton(context)),
+            ],
           ),
         ),
       ],
@@ -99,7 +105,7 @@ class OnboardingPage extends StatelessWidget {
               shape: BoxShape.circle,
               color: controller.currentIndex.value == index
                   ? ThemeController().secondaryColors.value
-                  : Colors.white,
+                  : ThemeController().whiteColor,
             ),
           ),
         ),
@@ -123,15 +129,15 @@ class OnboardingPage extends StatelessWidget {
                 width: Get.width,
                 child: screenPadding(
                   child: ElevatedButton(
-                    key: const ValueKey('getStarted'),
                     onPressed: controller.nextPage,
+                    key: const ValueKey('getStarted'),
                     style: ElevatedButton.styleFrom(
                       elevation: 2,
                       foregroundColor: themeController.blackColor,
                       backgroundColor: themeController.primaryColor,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(12.r),
                       ),
                     ),
                     child: TextConstant(
@@ -146,13 +152,13 @@ class OnboardingPage extends StatelessWidget {
                 onTap: controller.nextPage,
                 key: const ValueKey('nextButton'),
                 child: Container(
-                  width: 56,
-                  height: 56,
+                  width: 60,
+                  height: 60,
                   decoration: const BoxDecoration(
-                    color: Color(0xFFFFC107),
                     shape: BoxShape.circle,
+                    color: Color(0xFFFFC107),
                   ),
-                  child: Icon(size: 24.sp, Icons.arrow_forward),
+                  child: Icon(size: 25.sp, Icons.arrow_forward),
                 ),
               ),
       );

@@ -1,8 +1,8 @@
-import 'package:furniture_app/Theme/theme_controller.dart';
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:furniture_app/Screen/onBoarding/Controller/slider_controller.dart';
 import 'package:furniture_app/Screen/onBoarding/Widget/onboarding_page_widget.dart';
+import 'package:furniture_app/Theme/theme_controller.dart';
+import 'package:get/get.dart';
 
 class PageSlider extends StatelessWidget {
   const PageSlider({super.key});

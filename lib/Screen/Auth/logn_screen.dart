@@ -5,11 +5,14 @@ import 'package:furniture_app/Common/text_constant.dart';
 import 'package:furniture_app/Common/textfield_constant.dart';
 import 'package:furniture_app/Common/widget_constant.dart';
 import 'package:furniture_app/Constants/app_assets.dart';
+import 'package:furniture_app/Screen/Auth/verify_screen.dart';
 import 'package:furniture_app/Theme/theme_controller.dart';
+import 'package:get/get.dart';
+import 'package:get/utils.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
-class LognScreen extends StatelessWidget {
-  const LognScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +51,7 @@ class LognScreen extends StatelessWidget {
                   color: themeController.greyColor,
                 ),
                 suffixIcon: Icon(
-                  LucideIcons.eye,
+                  LucideIcons.eyeOff,
                   color: themeController.greyColor,
                 ),
                 textInputAction: TextInputAction.done,
@@ -63,7 +66,12 @@ class LognScreen extends StatelessWidget {
                 ),
               ),
               heightBox(50),
-              elevatedButton(title: 'Sign In', onPressed: () {}),
+              elevatedButton(
+                title: 'Sign In',
+                onPressed: () {
+                  Get.to(() => VerificationScreen());
+                },
+              ),
               heightBox(30),
               Row(
                 children: [
@@ -84,15 +92,14 @@ class LognScreen extends StatelessWidget {
                   ),
                 ],
               ),
-
               heightBox(40),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
                     height: 56.h,
                     width: 156.w,
+                    padding: EdgeInsets.all(15.h),
                     decoration: BoxDecoration(
                       border: Border.all(
                         width: 0.3,
@@ -109,6 +116,7 @@ class LognScreen extends StatelessWidget {
                   Container(
                     height: 56.h,
                     width: 156.w,
+                    padding: EdgeInsets.all(15.h),
                     decoration: BoxDecoration(
                       border: Border.all(
                         width: 0.3,
@@ -125,7 +133,6 @@ class LognScreen extends StatelessWidget {
                 ],
               ),
               heightBox(40),
-
               Center(
                 child: RichText(
                   text: TextSpan(
