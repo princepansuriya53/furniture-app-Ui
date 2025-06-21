@@ -21,10 +21,8 @@ class ThemeController extends GetxController {
   final Color blackColor = Colors.black;
   final Color primaryColor = Color(0xFFFCD240);
   final Color whiteColor = Colors.white;
+  final Color ErrorColor = Colors.red;
   final Color offWhiteColor = const Color(0xFFFFF9E4);
-
-  final Color appBar1Color = const Color(0xFF0F172A);
-  final Color appBar2Color = const Color(0xFF1E3A8A);
 
   @override
   void onInit() {

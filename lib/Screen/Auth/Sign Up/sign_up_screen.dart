@@ -29,7 +29,7 @@ class RegistrionScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              heightBox(20),
+              heightBox(70),
               TextConstant(
                 softWrap: true,
                 fontSize: 30.sp,
@@ -70,14 +70,7 @@ class RegistrionScreen extends StatelessWidget {
                 textInputAction: TextInputAction.done,
                 keyboardType: TextInputType.visiblePassword,
               ),
-              heightBox(40),
-              InkWell(
-                onTap: () {},
-                child: TextConstant(
-                  title: 'Forgot password?',
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+
               heightBox(50),
               elevatedButton(
                 title: 'Sign Up',

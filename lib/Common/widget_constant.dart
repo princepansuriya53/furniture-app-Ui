@@ -494,6 +494,7 @@ Widget elevatedButton({
   Gradient? gradient,
   required String title,
   Color? backGroundColor,
+  Color? foregroundColor,
   bool? isBorder = false,
   bool? isGradient = true,
   List<Color>? colorsGradient,
@@ -511,9 +512,11 @@ Widget elevatedButton({
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         elevation: 0,
-        backgroundColor: themeController.primaryColor,
-        foregroundColor: themeController.blackColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        foregroundColor: foregroundColor ?? themeController.blackColor,
+        backgroundColor: backGroundColor ?? themeController.primaryColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.r),
+        ),
       ),
       child: TextConstant(
         title: title,
