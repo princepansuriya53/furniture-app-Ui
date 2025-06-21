@@ -18,33 +18,31 @@ class CongoScreen extends StatelessWidget {
         themeController: themeController,
       ),
       body: screenPadding(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              heightBox(200),
-              TextConstant(
-                fontSize: 25,
-                title: 'Congratulations!',
-                fontWeight: FontWeight.w900,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            heightBox(200),
+            TextConstant(
+              fontSize: 25,
+              title: 'Congratulations!',
+              fontWeight: FontWeight.w900,
+            ),
+            heightBox(50),
+            SvgPicture.asset(AppAssets.doneLogo),
+            heightBox(50),
+            SizedBox(
+              width: MediaQuery.sizeOf(context).width / 1.1,
+              child: TextConstant(
+                fontSize: 13,
+                softWrap: true,
+                textAlign: TextAlign.center,
+                color: themeController.greyColor.withValues(alpha: 0.5),
+                title:
+                    'Your has been successfully created. Please add further information to make your shopping\nbetter.',
               ),
-              heightBox(50),
-              SvgPicture.asset(AppAssets.doneLogo),
-              heightBox(50),
-              SizedBox(
-                width: MediaQuery.sizeOf(context).width / 1.1,
-                child: TextConstant(
-                  fontSize: 13,
-                  softWrap: true,
-                  textAlign: TextAlign.center,
-                  color: themeController.greyColor.withValues(alpha: 0.5),
-                  title:
-                      'Your has been successfully created. Please add further information to make your shopping\nbetter.',
-                ),
-              ),
-              Spacer(),
-            ],
-          ),
+            ),
+            Spacer(),
+          ],
         ),
       ),
     );

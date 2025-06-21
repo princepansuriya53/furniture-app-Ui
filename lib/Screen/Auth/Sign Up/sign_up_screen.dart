@@ -1,14 +1,14 @@
-import 'package:get/get.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:lucide_icons/lucide_icons.dart';
-import 'package:furniture_app/Common/text_constant.dart';
-import 'package:furniture_app/Constants/app_assets.dart';
-import 'package:furniture_app/Theme/theme_controller.dart';
-import 'package:furniture_app/Common/widget_constant.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:furniture_app/Common/text_constant.dart';
 import 'package:furniture_app/Common/textfield_constant.dart';
-import 'package:furniture_app/Screen/Auth/Sign%20Up/congo_screen.dart';
+import 'package:furniture_app/Common/widget_constant.dart';
+import 'package:furniture_app/Constants/app_assets.dart';
+import 'package:furniture_app/Screen/Auth/Sign%20Up/loaction_screen.dart';
+import 'package:furniture_app/Theme/theme_controller.dart';
+import 'package:get/get.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class RegistrionScreen extends StatelessWidget {
   const RegistrionScreen({super.key});
@@ -75,7 +75,7 @@ class RegistrionScreen extends StatelessWidget {
               elevatedButton(
                 title: 'Sign Up',
                 onPressed: () {
-                  Get.to(() => CongoScreen());
+                  Get.to(() => LocationScreen());
                 },
               ),
               heightBox(30),

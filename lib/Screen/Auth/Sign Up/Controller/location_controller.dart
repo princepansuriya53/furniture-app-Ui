@@ -1,8 +1,8 @@
-import 'package:furniture_app/Screen/Home%20Screen/home_screen.dart';
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:furniture_app/Screen/Auth/Sign%20Up/congo_screen.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class LocationController extends GetxController {
@@ -37,7 +37,7 @@ class LocationController extends GetxController {
         backgroundColor: Colors.green,
         'Code verified: ${enteredCode.value}',
       );
-      Get.offAll(() => HomeScreen());
+      Get.offAll(() => CongoScreen());
     } else {
       Get.snackbar(
         'Error',
@@ -53,7 +53,6 @@ class LocationController extends GetxController {
       isLoading.value = true;
       errorMessage.value = '';
 
-      // Permission check
       PermissionStatus permission = await Permission.location.request();
       if (permission.isDenied || permission.isPermanentlyDenied) {
         errorMessage.value = 'Location permission denied';
