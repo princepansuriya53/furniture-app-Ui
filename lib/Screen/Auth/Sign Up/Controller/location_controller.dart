@@ -1,3 +1,4 @@
+import 'package:furniture_app/Screen/Home%20Screen/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -11,6 +12,41 @@ class LocationController extends GetxController {
   var errorMessage = ''.obs;
   var isLoading = false.obs;
   var hasLocation = false.obs;
+  var enteredCode = ''.obs;
+
+  void addDigit(String digit) {
+    if (enteredCode.value.length < 6) {
+      enteredCode.value = enteredCode.value + digit;
+    }
+  }
+
+  void removeDigit() {
+    if (enteredCode.value.isNotEmpty) {
+      enteredCode.value = enteredCode.value.substring(
+        0,
+        enteredCode.value.length - 1,
+      );
+    }
+  }
+
+  void confirmCode() {
+    if (enteredCode.value.length == 6) {
+      Get.snackbar(
+        'Success',
+        colorText: Colors.white,
+        backgroundColor: Colors.green,
+        'Code verified: ${enteredCode.value}',
+      );
+      Get.offAll(() => HomeScreen());
+    } else {
+      Get.snackbar(
+        'Error',
+        colorText: Colors.white,
+        backgroundColor: Colors.red,
+        'Please enter complete 6-digit code',
+      );
+    }
+  }
 
   Future<void> getCurrentLocation() async {
     try {

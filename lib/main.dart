@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:furniture_app/Screen/Auth/Sign%20Up/loaction_screen.dart';
+import 'package:furniture_app/Screen/Auth/Sign%20Up/sign_up_screen.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+
 import 'shared_prefrence_helper.dart';
 
 Future<void> main() async {
@@ -22,8 +23,7 @@ class MyApp extends StatelessWidget {
       builder: (_, child) {
         return GetMaterialApp(
           title: 'Dating App',
-          // home: RegistrionScreen(),
-          home: LocationScreen(),
+          home: RegistrionScreen(),
           debugShowCheckedModeBanner: false,
         );
       },

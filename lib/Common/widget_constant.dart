@@ -2,17 +2,17 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:furniture_app/Common/text_constant.dart';
 import 'package:furniture_app/Theme/theme_controller.dart';
-import 'package:get/get.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 
 enum Processing { done, waiting, error }
 
 Widget screenPadding({EdgeInsets? customPadding, required Widget child}) {
   return Padding(
-    padding: customPadding ?? EdgeInsets.symmetric(horizontal: 15.w),
+    padding: customPadding ?? EdgeInsets.symmetric(horizontal: 20.w),
     child: child,
   );
 }

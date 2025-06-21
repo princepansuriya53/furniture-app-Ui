@@ -1,95 +1,81 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'Controller/verify_controller.dart';
 import 'package:furniture_app/Common/text_constant.dart';
 import 'package:furniture_app/Common/widget_constant.dart';
 import 'package:furniture_app/Theme/theme_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:furniture_app/Screen/Auth/Sign%20Up/Controller/location_controller.dart';
 
-class VerificationScreen extends StatelessWidget {
-  final VerificationController controller = Get.put(VerificationController());
-
-  VerificationScreen({super.key});
+class PassCodeScreen extends StatelessWidget {
+  final LocationController locationController = Get.put(LocationController());
+  PassCodeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     ThemeController themeController = ThemeController();
+
     return Scaffold(
       appBar: commonAppbar(
         title: '',
         elevation: 0,
         themeController: themeController,
-      ),                           
+      ),
       body: screenPadding(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            heightBox(50),
+            heightBox(30),
             TextConstant(
-              fontSize: 18.sp,
-              title: "Verify it's you",
+              fontSize: 20.sp,
+              title: "Set your password",
               fontWeight: FontWeight.bold,
             ),
-            heightBox(8),
+            heightBox(10),
             TextConstant(
+              softWrap: true,
               fontSize: 12.sp,
-              color: themeController.greyColor.withValues(alpha: 0.5),
+              color: themeController.greyColor.withValues(alpha: 0.6),
               title:
-                  "We have sent a verification code to your email,\nplease enter the code below.",
+                  "We use state-of-the-art security measures to protect your information at all times.",
             ),
             heightBox(40),
-            Center(
-              child: Obx(
-                () => Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: List.generate(6, (index) {
-                    bool isFilled = index < controller.enteredCode.value.length;
-                    return Container(
-                      width: 45.w,
-                      height: 45.h,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 2,
-                          color: isFilled
-                              ? themeController.primaryColor
-                              : themeController.greyColor.withValues(
-                                  alpha: 0.4,
-                                ),
-                        ),
-                        borderRadius: BorderRadius.circular(8),
+            Obx(
+              () => Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: List.generate(6, (index) {
+                  bool isFilled =
+                      index < locationController.enteredCode.value.length;
+                  return Container(
+                    width: 45.w,
+                    height: 45.h,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 2,
+                        color: isFilled
+                            ? themeController.primaryColor
+                            : themeController.greyColor.withValues(alpha: 0.4),
                       ),
-                      child: Center(
-                        child: TextConstant(
-                          fontSize: 24.sp,
-                          fontWeight: FontWeight.bold,
-                          title: isFilled
-                              ? controller.enteredCode.value[index]
-                              : '',
-                        ),
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: Center(
+                      child: TextConstant(
+                        fontSize: 24.sp,
+                        fontWeight: FontWeight.bold,
+                        title: isFilled
+                            ? locationController.enteredCode.value[index]
+                            : '',
                       ),
-                    );
-                  }),
-                ),
+                    ),
+                  );
+                }),
               ),
             ),
-            heightBox(20),
-            Center(
-              child: Obx(
-                () => TextConstant(
-                  fontSize: 14,
-                  color: themeController.greyColor.withValues(alpha: 0.6),
-                  title:
-                      "You can resend the code after 1 minute ( 00:${controller.resendTimer.value.toString().padLeft(2, '0')} )",
-                ),
-              ),
-            ),
-            heightBox(40),
+            heightBox(60),
             SizedBox(
               height: 50.h,
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: controller.confirmCode,
+                onPressed: locationController.confirmCode,
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
                   backgroundColor: themeController.primaryColor,
@@ -105,9 +91,8 @@ class VerificationScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Spacer(),
+            heightBox(60),
             buildNumericKeypad(),
-            heightBox(20),
           ],
         ),
       ),
@@ -139,15 +124,15 @@ class VerificationScreen extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (isBackspace) {
-          controller.removeDigit();
+          locationController.removeDigit();
         } else {
-          controller.addDigit(text);
+          locationController.addDigit(text);
         }
       },
       child: Container(
-        width: 80.w,
+        width: 60.w,
         height: 60.h,
-        margin: const EdgeInsets.all(8),
+        margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.r)),
         child: Center(
           child: TextConstant(title: text, fontSize: 28.sp),

@@ -1,3 +1,4 @@
+import 'package:furniture_app/Screen/Auth/Sign%20Up/pass_code_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -112,18 +113,27 @@ class LocationScreen extends StatelessWidget {
                       margin: EdgeInsets.only(top: 20),
                       padding: EdgeInsets.all(15),
                       decoration: BoxDecoration(
-                        color: Colors.red[50],
+                        color: themeController.ErrorColor.withValues(
+                          alpha: 0.1,
+                        ),
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.red[200]!),
+                        border: Border.all(
+                          color: themeController.ErrorColor.withValues(
+                            alpha: 0.5,
+                          ),
+                        ),
                       ),
                       child: Row(
                         children: [
-                          Icon(Icons.error_outline, color: Colors.red),
-                          SizedBox(width: 10),
+                          Icon(
+                            Icons.error_outline,
+                            color: themeController.ErrorColor,
+                          ),
+                          widthBox(10),
                           Expanded(
-                            child: Text(
-                              locationController.errorMessage.value,
-                              style: TextStyle(color: Colors.red[700]),
+                            child: TextConstant(
+                              color: themeController.ErrorColor,
+                              title: locationController.errorMessage.value,
                             ),
                           ),
                         ],
@@ -137,7 +147,7 @@ class LocationScreen extends StatelessWidget {
                   ? elevatedButton(
                       title: 'Confirm',
                       onPressed: () {
-                        Get.to(() {});
+                        Get.to(() => PassCodeScreen());
                       },
                     )
                   : SizedBox.shrink(),
