@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furniture_app/Common/text_constant.dart';
 import 'package:furniture_app/Common/widget_constant.dart';
+import 'package:furniture_app/Screen/Home%20Screen/home_screen.dart';
 import 'package:furniture_app/Theme/theme_controller.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class BiometricScreen extends StatelessWidget {
   const BiometricScreen({super.key});
@@ -47,12 +50,19 @@ class BiometricScreen extends StatelessWidget {
             SizedBox(
               height: 50.h,
               width: double.infinity,
-              child: elevatedButton(title: 'Enable', onPressed: () {}),
+              child: elevatedButton(
+                title: 'Enable',
+                onPressed: () {
+                  Get.to(() => HomeScreen());
+                },
+              ),
             ),
             heightBox(16),
             Center(
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(() => HomeScreen());
+                },
                 child: TextConstant(
                   fontSize: 16,
                   title: "I'll do it later",

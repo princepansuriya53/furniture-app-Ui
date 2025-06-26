@@ -2,6 +2,14 @@ class AppAssets {
   static const String icons = 'assets/icons/';
   static const String images = 'assets/images/';
 
+  static const String sofa1 = '${images}sofa_1.png';
+  static const String sofa2 = '${images}sofa_2.png';
+  static const String sofa3 = '${images}sofa_3.png';
+  static const String sofa4 = '${images}sofa_4.png';
+  static const String sofa5 = '${images}sofa_5.png';
+  static const String sofa6 = '${images}sofa_6.png';
+  static const String sofa7 = '${images}sofa_7.png';
+  static const String sofa8 = '${images}sofa_8.png';
   static const String appLogo = '${images}app_logo.svg';
   static const String doneLogo = '${icons}done_svg.svg';
   static const String image1 = '${images}image_page1.png';

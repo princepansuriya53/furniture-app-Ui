@@ -65,10 +65,12 @@ Future<DateTime?> pickDateTime(
     initialDate: initialDate ?? DateTime.now(),
     firstDate: DateTime(1600).subtract(const Duration(days: 3652)),
     lastDate: DateTime(2100),
-    is24HourMode: false,
-    isShowSeconds: false,
     minutesInterval: 1,
     secondsInterval: 1,
+    is24HourMode: false,
+    isShowSeconds: false,
+    barrierDismissible: true,
+    transitionDuration: const Duration(milliseconds: 200),
     borderRadius: const BorderRadius.all(Radius.circular(16)),
     padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
     constraints: const BoxConstraints(maxWidth: 350, maxHeight: 650),
@@ -79,8 +81,6 @@ Future<DateTime?> pickDateTime(
         child: child,
       );
     },
-    transitionDuration: const Duration(milliseconds: 200),
-    barrierDismissible: true,
   );
   return selectedDate;
 }
