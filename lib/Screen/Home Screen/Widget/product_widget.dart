@@ -19,6 +19,7 @@ class ProductCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => productController.navigateToProductDetail(product.id),
       child: Container(
+        width: 160.w,
         margin: EdgeInsets.only(right: 15.w),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.r),
@@ -54,30 +55,37 @@ class ProductCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextConstant(
-                    fontSize: 16,
+                    fontSize: 10,
                     fontWeight: FontWeight.bold,
                     title: '\$${product.price.toStringAsFixed(2)}',
+                  ),
+                  TextConstant(
+                    fontSize: 9,
+                    textDecoration: TextDecoration.lineThrough,
+                    title: '\$${product.realPrice.toStringAsFixed(2)}',
                   ),
                   Container(
                     height: 30.h,
                     width: 30.w,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: themeController.whiteColor.withValues(alpha: 0.9),
+                      color: themeController.whiteColor.withAlpha(230),
                     ),
                     child: Obx(
                       () => IconButton(
+                        iconSize: 18.sp,
                         padding: EdgeInsets.zero,
-                        icon: Icon(
-                          productController.isFavorite(product.id)
-                              ? Icons.favorite
-                              : Icons.favorite_border,
-                        ),
                         onPressed: () =>
                             productController.toggleFavorite(product.id),
                         color: productController.isFavorite(product.id)
                             ? themeController.primaryColor
                             : themeController.greyColor,
+
+                        icon: Icon(
+                          productController.isFavorite(product.id)
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                        ),
                       ),
                     ),
                   ),

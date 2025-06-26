@@ -119,13 +119,13 @@ class HomeScreen extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                   GestureDetector(
-                    onTap: () => productController.navigateToAllProducts(),
+                    onTap: () {},
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         TextConstant(title: 'View all', fontSize: 12),
                         widthBox(4),
-                        Icon(size: 12, Icons.arrow_forward_ios),
+                        Icon(Icons.arrow_forward_ios, size: 12),
                       ],
                     ),
                   ),
