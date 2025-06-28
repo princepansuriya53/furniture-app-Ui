@@ -1,3 +1,4 @@
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
@@ -9,46 +10,23 @@ import 'package:furniture_app/Theme/theme_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furniture_app/Common/textfield_constant.dart';
 import 'package:furniture_app/Screen/Home%20Screen/Widget/product_widget.dart';
+import 'package:furniture_app/Screen/Home%20Screen/Screen/arrival_screen.dart';
 import 'package:furniture_app/Screen/Home%20Screen/Controller/home_controller.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
   final ThemeController themeController = ThemeController();
-  final ProductController productController = Get.put(ProductController());
+  final HomeController productController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: commonAppbar(
-        title: 'Arino',
-        isCenterTitle: false,
-        isLeadingEnable: false,
-        themeController: themeController,
-        actionWidget: [
-          CircleAvatar(
-            backgroundColor: themeController.primaryColor.withValues(
-              alpha: 0.2,
-            ),
-            child: Icon(
-              Icons.favorite_border_outlined,
-              color: themeController.primaryColor,
-            ),
-          ),
-          widthBox(8),
-          CircleAvatar(
-            backgroundImage: NetworkImage(
-              scale: 3,
-              'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            ),
-          ),
-          widthBox(8),
-        ],
-      ),
       body: screenPadding(
         child: SingleChildScrollView(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               heightBox(20),
               TextFieldConstant(
@@ -110,17 +88,17 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               heightBox(20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextConstant(
-                    fontSize: 20,
-                    title: 'New arrivals',
-                    fontWeight: FontWeight.w600,
-                  ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Row(
+              GestureDetector(
+                onTap: () => Get.to(() => ArrivalScreen()),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextConstant(
+                      fontSize: 20,
+                      title: 'New arrivals',
+                      fontWeight: FontWeight.w600,
+                    ),
+                    Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         TextConstant(title: 'View all', fontSize: 12),
@@ -128,8 +106,8 @@ class HomeScreen extends StatelessWidget {
                         Icon(Icons.arrow_forward_ios, size: 12),
                       ],
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               heightBox(16),
               SizedBox(
@@ -144,9 +122,11 @@ class HomeScreen extends StatelessWidget {
                       child: TextConstant(title: 'No products available'),
                     );
                   } else {
-                    return ListView.builder(
+                    return ListView.separated(
+                      physics: BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       itemCount: productController.products.length,
+                      separatorBuilder: (context, index) => widthBox(10),
                       itemBuilder: (context, index) {
                         return ProductCard(
                           product: productController.products[index],
@@ -156,6 +136,149 @@ class HomeScreen extends StatelessWidget {
                   }
                 }),
               ),
+              heightBox(20),
+              TextConstant(
+                fontSize: 26,
+                title: 'Categories',
+                fontWeight: FontWeight.w500,
+              ),
+              Obx(
+                () => Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: List.generate(productController.iconPaths.length, (
+                    index,
+                  ) {
+                    final isSelected =
+                        productController.selectedIndex.value == index;
+                    return GestureDetector(
+                      onTap: () => productController.setCategoriesIndex(index),
+                      child: AnimatedContainer(
+                        padding: EdgeInsets.all(11.h),
+                        duration: Duration(milliseconds: 100),
+                        margin: EdgeInsets.symmetric(horizontal: 2.w),
+                        decoration: BoxDecoration(
+                          color: isSelected
+                              ? themeController.primaryColor
+                              : themeController.whiteColor,
+                          borderRadius: BorderRadius.circular(5.r),
+                        ),
+                        child: SvgPicture.asset(
+                          width: 24,
+                          height: 24,
+                          productController.iconPaths[index],
+                          colorFilter: ColorFilter.mode(
+                            isSelected
+                                ? themeController.blackColor
+                                : themeController.greyColor,
+                            BlendMode.srcIn,
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+                ),
+              ),
+              heightBox(16),
+              Obx(() {
+                final categoryItems = productController.filteredCategories;
+                if (categoryItems.isEmpty) {
+                  return Center(
+                    child: TextConstant(title: 'No items in this category'),
+                  );
+                }
+                return ListView.separated(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: categoryItems.length,
+                  separatorBuilder: (_, __) => heightBox(10),
+                  itemBuilder: (context, index) {
+                    final item = categoryItems[index];
+
+                    return Container(
+                      padding: EdgeInsets.all(10.h),
+                      decoration: BoxDecoration(
+                        color: themeController.whiteColor,
+                        borderRadius: BorderRadius.circular(10.r),
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 4,
+                            offset: Offset(0, 2),
+                            color: themeController.blackColor.withValues(
+                              alpha: 0.2,
+                            ),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            height: 80.h,
+                            width: 80.w,
+                            item['image'],
+                            fit: BoxFit.contain,
+                          ),
+                          widthBox(10),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                TextConstant(
+                                  fontSize: 16,
+                                  title: item['name'],
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                heightBox(4),
+                                TextConstant(
+                                  fontSize: 12,
+                                  softWrap: true,
+                                  title: item['Description'],
+                                ),
+                                heightBox(4),
+                                Row(
+                                  children: [
+                                    TextConstant(
+                                      fontSize: 14,
+
+                                      title: item['Price'],
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    widthBox(8),
+                                    TextConstant(
+                                      fontSize: 12.sp,
+
+                                      title: item['RealPrice'],
+                                      textDecoration:
+                                          TextDecoration.lineThrough,
+                                    ),
+                                    widthBox(8),
+                                    Icon(
+                                      Icons.star,
+                                      size: 14.sp,
+                                      color: themeController.primaryColor,
+                                    ),
+                                    TextConstant(
+                                      fontSize: 12,
+
+                                      title: item['Ratings'],
+                                    ),
+                                    widthBox(6),
+                                    TextConstant(
+                                      fontSize: 11,
+
+                                      color: themeController.greyColor,
+                                      title: "(${item['Reviews']} revixews)",
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              }),
             ],
           ),
         ),

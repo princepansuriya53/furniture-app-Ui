@@ -2,6 +2,12 @@ class AppAssets {
   static const String icons = 'assets/icons/';
   static const String images = 'assets/images/';
 
+  static const String bead = '${icons}baed.svg';
+  static const String char = '${icons}chear.svg';
+  static const String stared = '${icons}stard.svg';
+  static const String sofaChair = '${icons}sofa_chear.svg';
+  static const String dinerTable = '${icons}Daining_table.svg';
+  static const String sleepingChair = '${icons}sleeping_chair.svg';
   static const String sofa1 = '${images}sofa_1.png';
   static const String sofa2 = '${images}sofa_2.png';
   static const String sofa3 = '${images}sofa_3.png';
@@ -10,6 +16,15 @@ class AppAssets {
   static const String sofa6 = '${images}sofa_6.png';
   static const String sofa7 = '${images}sofa_7.png';
   static const String sofa8 = '${images}sofa_8.png';
+  static const String Living = '${images}Living.png';
+  static const String BedRoom = '${images}Bedroom.png';
+  static const String Kitchen = '${images}Kitchen.png';
+  static const String Dinning = '${images}Dinning.png';
+  static const String sofaLarge = '${images}sofaLarge.png';
+  static const String doubleSofa = '${images}doubleSofa.png';
+  static const String doubleSofa2 = '${images}doubleSofa2.png';
+  static const String doubleSofa3 = '${images}doubleSofa3.png';
+  static const String sleepingBead = '${images}sleepingBead.png';
   static const String appLogo = '${images}app_logo.svg';
   static const String doneLogo = '${icons}done_svg.svg';
   static const String image1 = '${images}image_page1.png';

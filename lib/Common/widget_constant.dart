@@ -548,6 +548,7 @@ AppBar commonAppbar({
     titleSpacing: titleSpacing,
     scrolledUnderElevation: 0.0,
     toolbarHeight: toolbarHeight,
+    forceMaterialTransparency: true,
     automaticallyImplyLeading: false,
     backgroundColor: backgroundColor,
     surfaceTintColor: Colors.transparent,

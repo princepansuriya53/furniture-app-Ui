@@ -23,6 +23,7 @@ class ThemeController extends GetxController {
   final Color whiteColor = Colors.white;
   final Color ErrorColor = Colors.red;
   final Color offWhiteColor = const Color(0xFFFFF9E4);
+  final Color GreayColor = const Color(0xFFEFEFEF);
 
   @override
   void onInit() {

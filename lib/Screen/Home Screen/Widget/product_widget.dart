@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furniture_app/Common/text_constant.dart';
+import 'package:furniture_app/Common/widget_constant.dart';
 import 'package:furniture_app/Model/product_model.dart';
 import 'package:furniture_app/Screen/Home%20Screen/Controller/home_controller.dart';
 import 'package:furniture_app/Theme/theme_controller.dart';
@@ -12,7 +13,7 @@ class ProductCard extends StatelessWidget {
   ProductCard({Key? key, required this.product});
 
   final ThemeController themeController = ThemeController();
-  final ProductController productController = Get.find<ProductController>();
+  final HomeController productController = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +21,9 @@ class ProductCard extends StatelessWidget {
       onTap: () => productController.navigateToProductDetail(product.id),
       child: Container(
         width: 160.w,
-        margin: EdgeInsets.only(right: 15.w),
         decoration: BoxDecoration(
+          color: themeController.GreayColor,
           borderRadius: BorderRadius.circular(8.r),
-          color: themeController.greyColor.withValues(alpha: 0.2),
         ),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -64,6 +64,7 @@ class ProductCard extends StatelessWidget {
                     textDecoration: TextDecoration.lineThrough,
                     title: '\$${product.realPrice.toStringAsFixed(2)}',
                   ),
+                  widthBox(20),
                   Container(
                     height: 30.h,
                     width: 30.w,
