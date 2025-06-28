@@ -7,6 +7,8 @@ class AppAssets {
   static const String stared = '${icons}stard.svg';
   static const String sofaChair = '${icons}sofa_chear.svg';
   static const String dinerTable = '${icons}Daining_table.svg';
+  static const String InviteIcons = '${icons}invite_icons.svg';
+  static const String DiscountIcon = '${icons}discount_icon.svg';
   static const String sleepingChair = '${icons}sleeping_chair.svg';
   static const String sofa1 = '${images}sofa_1.png';
   static const String sofa2 = '${images}sofa_2.png';
@@ -25,6 +27,10 @@ class AppAssets {
   static const String doubleSofa2 = '${images}doubleSofa2.png';
   static const String doubleSofa3 = '${images}doubleSofa3.png';
   static const String sleepingBead = '${images}sleepingBead.png';
+  static const String Classic = '${images}classic.png';
+  static const String Minimal = '${images}minimal.png';
+  static const String Modern = '${images}morden.png';
+  static const String Stylish = '${images}Stylish.png';
   static const String appLogo = '${images}app_logo.svg';
   static const String doneLogo = '${icons}done_svg.svg';
   static const String image1 = '${images}image_page1.png';

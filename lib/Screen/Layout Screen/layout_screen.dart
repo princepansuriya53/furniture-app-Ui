@@ -7,10 +7,13 @@ import 'package:furniture_app/Common/text_constant.dart';
 import 'package:furniture_app/Common/widget_constant.dart';
 import 'package:furniture_app/Theme/theme_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:furniture_app/Screen/Layout%20Screen/Controller/layout_controller.dart';
 
 class LayoutScreen extends StatelessWidget {
   LayoutScreen({super.key});
+
   final ThemeController themeController = ThemeController();
+  final LayoutController layoutController = Get.put(LayoutController());
 
   @override
   Widget build(BuildContext context) {
@@ -71,41 +74,61 @@ class LayoutScreen extends StatelessWidget {
                 title: 'Shop By Room',
                 fontWeight: FontWeight.w500,
               ),
-              
-              Stack(
-                children: [
-                  Container(
-                    height: 210.h,
-                    width: 160.w,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(AppAssets.BedRoom),
-                      ),
-                    ),
+              heightBox(15),
+              Obx(
+                () => GridView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: layoutController.items.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 15.h,
+                    crossAxisSpacing: 15.w,
+                    childAspectRatio: 0.8,
                   ),
-                  Container(
-                    height: 80.h,
-                    width: 160.w,
-                    padding: EdgeInsets.only(left: 10.w, top: 5.h),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          themeController.blackColor.withValues(alpha: 0.5),
-                          Colors.transparent,
-                        ],
-                      ),
-                      borderRadius: BorderRadius.circular(10.r),
-                    ),
-                    child: TextConstant(
-                      fontSize: 20,
-                      title: 'Bedroom',
-                      fontWeight: FontWeight.w500,
-                      color: themeController.whiteColor,
-                    ),
-                  ),
-                ],
+                  itemBuilder: (context, index) {
+                    final item = layoutController.items[index];
+                    return Stack(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.r),
+                            image: DecorationImage(
+                              image: AssetImage(item['image'] ?? ''),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 80.h,
+                          padding: EdgeInsets.only(left: 10.w, top: 5.h),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.r),
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                themeController.blackColor.withValues(
+                                  alpha: 0.5,
+                                ),
+                                Colors.transparent,
+                              ],
+                            ),
+                          ),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: TextConstant(
+                              fontSize: 20,
+                              title: item['name'] ?? '',
+                              fontWeight: FontWeight.w500,
+                              color: themeController.whiteColor,
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
               ),
             ],
           ),

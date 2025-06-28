@@ -5,7 +5,6 @@ import 'package:furniture_app/Common/widget_constant.dart';
 import 'package:furniture_app/Screen/Home%20Screen/home_screen.dart';
 import 'package:furniture_app/Theme/theme_controller.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class BiometricScreen extends StatelessWidget {
   const BiometricScreen({super.key});

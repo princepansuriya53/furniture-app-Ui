@@ -1,8 +1,12 @@
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 import 'package:furniture_app/Model/product_model.dart';
 import 'package:furniture_app/Constants/app_assets.dart';
+import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 
 class HomeController extends GetxController {
+  late QRViewController qrController;
+
   final RxInt selectedIndex = 0.obs;
   final RxBool isLoading = false.obs;
   final RxList<Product> products = <Product>[].obs;
@@ -92,7 +96,6 @@ class HomeController extends GetxController {
 
   void filterCategoryProducts() {
     if (selectedIndex.value == 0) {
-      // Show all categories
       filteredCategories.value = CategoriesList;
     } else {
       filteredCategories.value = CategoriesList.where(
@@ -155,7 +158,7 @@ class HomeController extends GetxController {
           imagePath: AppAssets.sofa7,
         ),
         Product(
-          id: 6,
+          id: 8,
           price: 87.60,
           realPrice: 104.30,
           name: 'Daker Seat',
@@ -169,24 +172,9 @@ class HomeController extends GetxController {
 
   void toggleFavorite(int productId) {
     final currentStatus = favoriteStatus[productId] ?? false;
-
     favoriteStatus[productId] = !currentStatus;
 
-    final product = products.firstWhereOrNull((p) => p.id == productId);
-
-    if (product != null) {
-      updateFavoritesList();
-      /*  Get.snackbar(
-        product.name,
-        favoriteStatus[productId]!
-            ? 'Added to Favorites'
-            : 'Removed from Favorites',
-        colorText: Colors.white,
-        snackPosition: SnackPosition.BOTTOM,
-        duration: const Duration(seconds: 1),
-        backgroundColor: favoriteStatus[productId]! ? Colors.green : Colors.red,
-      ); */
-    }
+    updateFavoritesList();
   }
 
   bool isFavorite(int productId) {
@@ -211,7 +199,46 @@ class HomeController extends GetxController {
     print('Navigate to product detail: $productId');
   }
 
-  void navigateToAllProducts() {
-    print('Navigate to all products');
+  void startScanning() {
+    qrController.scannedDataStream.listen((scanData) {
+      final scannedId = int.tryParse(scanData.code ?? '');
+      if (scannedId != null) {
+        final product = getProductById(scannedId);
+        if (product != null) {
+          qrController.pauseCamera();
+          Get.snackbar(
+            "Product Found",
+            product.name,
+            backgroundColor: Colors.green,
+            colorText: Colors.white,
+          );
+          navigateToProductDetail(product.id);
+        } else {
+          Get.snackbar(
+            "Not Found",
+            "No product with ID $scannedId found",
+            backgroundColor: Colors.red,
+            colorText: Colors.white,
+          );
+        }
+      } else {
+        Get.snackbar(
+          "Invalid QR",
+          "The scanned QR is not valid.",
+          backgroundColor: Colors.orange,
+          colorText: Colors.white,
+        );
+      }
+    });
+  }
+
+  void resumeCamera() {
+    qrController.resumeCamera();
+  }
+
+  @override
+  void onClose() {
+    qrController.dispose();
+    super.onClose();
   }
 }

@@ -1,5 +1,5 @@
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:furniture_app/Global/globel_use.dart';
@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furniture_app/Common/textfield_constant.dart';
 import 'package:furniture_app/Screen/Home%20Screen/Widget/product_widget.dart';
 import 'package:furniture_app/Screen/Home%20Screen/Screen/arrival_screen.dart';
+import 'package:furniture_app/Screen/Home%20Screen/Widget/product_scanner.dart';
 import 'package:furniture_app/Screen/Home%20Screen/Controller/home_controller.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -36,7 +37,10 @@ class HomeScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Icon(LucideIcons.scan),
+                    GestureDetector(
+                      onTap: () => Get.to(() => ProductScanner()),
+                      child: Icon(LucideIcons.scan),
+                    ),
                     Icon(LucideIcons.search),
                     SizedBox(),
                   ],
@@ -187,9 +191,9 @@ class HomeScreen extends StatelessWidget {
                   );
                 }
                 return ListView.separated(
-                  physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: categoryItems.length,
+                  physics: NeverScrollableScrollPhysics(),
                   separatorBuilder: (_, __) => heightBox(10),
                   itemBuilder: (context, index) {
                     final item = categoryItems[index];
