@@ -50,5 +50,8 @@
     <string>This app needs location access to show your current position.</string>
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
     <string>This app needs location access to show your current position.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs access to the camera for scanning QR codes.</string>
+
 </dict>
 </plist>

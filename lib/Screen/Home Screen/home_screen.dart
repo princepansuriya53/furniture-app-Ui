@@ -1,18 +1,19 @@
 import 'package:get/get.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter/material.dart';
-import 'package:lucide_icons/lucide_icons.dart';
-import 'package:furniture_app/Global/globel_use.dart';
-import 'package:furniture_app/Constants/app_assets.dart';
-import 'package:furniture_app/Common/text_constant.dart';
-import 'package:furniture_app/Common/widget_constant.dart';
-import 'package:furniture_app/Theme/theme_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:furniture_app/Common/text_constant.dart';
 import 'package:furniture_app/Common/textfield_constant.dart';
-import 'package:furniture_app/Screen/Home%20Screen/Widget/product_widget.dart';
-import 'package:furniture_app/Screen/Home%20Screen/Screen/arrival_screen.dart';
-import 'package:furniture_app/Screen/Home%20Screen/Widget/product_scanner.dart';
+import 'package:furniture_app/Common/widget_constant.dart';
+import 'package:furniture_app/Constants/app_assets.dart';
+import 'package:furniture_app/Global/globel_use.dart';
 import 'package:furniture_app/Screen/Home%20Screen/Controller/home_controller.dart';
+import 'package:furniture_app/Screen/Home%20Screen/Screen/arrival_screen.dart';
+import 'package:furniture_app/Screen/Home%20Screen/Screen/product_search.dart';
+import 'package:furniture_app/Screen/Home%20Screen/Widget/product_scanner.dart';
+import 'package:furniture_app/Screen/Home%20Screen/Widget/product_widget.dart';
+import 'package:furniture_app/Theme/theme_controller.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -31,7 +32,14 @@ class HomeScreen extends StatelessWidget {
             children: [
               heightBox(20),
               TextFieldConstant(
+                isReadOnly: true,
                 hintText: 'Search',
+                onTap: () => Get.to(
+                  () => ProductSearch(),
+                  curve: Curves.easeInOut,
+                  transition: Transition.fade,
+                  duration: Duration(milliseconds: 500),
+                ),
                 suffixIcon: Row(
                   spacing: 15.w,
                   mainAxisSize: MainAxisSize.min,

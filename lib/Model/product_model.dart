@@ -2,8 +2,8 @@ class Product {
   final int id;
   bool isFavorite;
   final String name;
-  final double price;
-  final double realPrice;
+  final String price;
+  final String realPrice;
   final String imagePath;
 
   Product({

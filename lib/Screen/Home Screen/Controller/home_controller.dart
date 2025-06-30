@@ -1,18 +1,22 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:furniture_app/Model/product_model.dart';
+import 'package:furniture_app/Common/text_constant.dart';
 import 'package:furniture_app/Constants/app_assets.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 
 class HomeController extends GetxController {
-  late QRViewController qrController;
-
   final RxInt selectedIndex = 0.obs;
+  late QRViewController qrController;
   final RxBool isLoading = false.obs;
   final RxList<Product> products = <Product>[].obs;
   final RxList<Product> favoriteProducts = <Product>[].obs;
   final RxMap<int, bool> favoriteStatus = <int, bool>{}.obs;
+  final TextEditingController searchController = TextEditingController();
   final RxList<Map<String, dynamic>> filteredCategories =
+      <Map<String, dynamic>>[].obs;
+  final RxList<Map<String, dynamic>> searchResults =
       <Map<String, dynamic>>[].obs;
 
   final List<String> iconPaths = [
@@ -27,10 +31,10 @@ class HomeController extends GetxController {
   final CategoriesList = [
     {
       'id': 0,
-      'Price': '₹19,999',
+      'Price': "19,999",
       'Ratings': '4.5',
       'Reviews': '312',
-      'RealPrice': '₹25,999',
+      'RealPrice': '25,999',
       'name': 'Emerald Velvet Sofa',
       'image': AppAssets.doubleSofa,
       'Description':
@@ -40,8 +44,8 @@ class HomeController extends GetxController {
       'id': 1,
       'Ratings': '4.2',
       'Reviews': '205',
-      'Price': '₹14,499',
-      'RealPrice': '₹18,000',
+      'Price': '14,499',
+      'RealPrice': '18,000',
       'name': 'Yellow Casual Sofa',
       'image': AppAssets.doubleSofa2,
       'Description':
@@ -49,10 +53,10 @@ class HomeController extends GetxController {
     },
     {
       'id': 2,
-      'Price': '₹29,999',
       'Ratings': '4.7',
       'Reviews': '420',
-      'RealPrice': '₹35,000',
+      'Price': '29,999',
+      'RealPrice': '35,000',
       'name': 'White Comfort Bed',
       'image': AppAssets.sleepingBead,
       'Description':
@@ -60,10 +64,10 @@ class HomeController extends GetxController {
     },
     {
       'id': 4,
-      'Price': '₹2,499',
+      'Price': '2,499',
       'Ratings': '4.1',
       'Reviews': '58',
-      'RealPrice': '₹3,200',
+      'RealPrice': '3,200',
       'name': 'Classic Wooden Stool',
       'image': AppAssets.doubleSofa3,
       'Description':
@@ -73,8 +77,8 @@ class HomeController extends GetxController {
       'id': 6,
       'Reviews': '365',
       'Ratings': '4.6',
-      'Price': '₹21,499',
-      'RealPrice': '₹27,000',
+      'Price': '21,499',
+      'RealPrice': '27,000',
       'name': 'Tan Leather Sofa',
       'image': AppAssets.sofaLarge,
       'Description':
@@ -82,11 +86,26 @@ class HomeController extends GetxController {
     },
   ];
 
+  void searchProducts(String query) {
+    if (query.isEmpty) {
+      searchResults.assignAll(CategoriesList);
+    } else {
+      searchResults.assignAll(
+        CategoriesList.where(
+          (item) => (item['name'] as String).toLowerCase().contains(
+            query.toLowerCase(),
+          ),
+        ).toList(),
+      );
+    }
+  }
+
   @override
   void onInit() {
     super.onInit();
     loadProducts();
     filterCategoryProducts();
+    searchResults.assignAll(CategoriesList);
   }
 
   void setCategoriesIndex(int index) {
@@ -110,58 +129,58 @@ class HomeController extends GetxController {
       products.value = [
         Product(
           id: 1,
-          price: 29.99,
-          realPrice: 47.50,
+          price: "29.99",
+          realPrice: "47.50",
           name: 'Comfy Roaster',
           imagePath: AppAssets.sofa1,
         ),
         Product(
           id: 2,
-          price: 24.99,
-          realPrice: 28.70,
+          price: "24.99",
+          realPrice: "28.70",
           name: 'Sera Core',
           imagePath: AppAssets.sofa2,
         ),
         Product(
           id: 3,
-          price: 34.99,
-          realPrice: 70.10,
+          price: "34.99",
+          realPrice: "70.10",
           name: 'Beast Treas',
           imagePath: AppAssets.sofa3,
         ),
         Product(
           id: 4,
-          price: 39.99,
-          realPrice: 47.50,
+          price: "39.99",
+          realPrice: "47.50",
           name: 'Modern Chair',
           imagePath: AppAssets.sofa4,
         ),
         Product(
           id: 5,
-          price: 49.99,
-          realPrice: 90.50,
+          price: "49.99",
+          realPrice: "90.50",
           name: 'Luxury Seat',
           imagePath: AppAssets.sofa5,
         ),
         Product(
           id: 6,
-          price: 87.60,
-          realPrice: 104.30,
-          name: 'Double Daker Seat',
+          price: "87.60",
+          realPrice: "104.30",
+          name: 'Double Dakar Seat',
           imagePath: AppAssets.sofa6,
         ),
         Product(
           id: 7,
-          price: 60.60,
-          realPrice: 102.30,
-          name: 'Single Daker Seat',
+          price: "60.60",
+          realPrice: "102.30",
+          name: 'Single Dakar Seat',
           imagePath: AppAssets.sofa7,
         ),
         Product(
           id: 8,
-          price: 87.60,
-          realPrice: 104.30,
-          name: 'Daker Seat',
+          price: "87.60",
+          realPrice: "104.30",
+          name: 'Dakar Seat',
           imagePath: AppAssets.sofa8,
         ),
       ];
@@ -173,7 +192,6 @@ class HomeController extends GetxController {
   void toggleFavorite(int productId) {
     final currentStatus = favoriteStatus[productId] ?? false;
     favoriteStatus[productId] = !currentStatus;
-
     updateFavoritesList();
   }
 
@@ -195,50 +213,73 @@ class HomeController extends GetxController {
     }
   }
 
-  void navigateToProductDetail(int productId) {
-    print('Navigate to product detail: $productId');
+  void startScanning() async {
+    final status = await Permission.camera.status;
+    if (status.isGranted) {
+      startQrListening();
+    } else if (status.isDenied || status.isRestricted || status.isLimited) {
+      final result = await Permission.camera.request();
+      if (result.isGranted) {
+        startQrListening();
+      } else if (result.isPermanentlyDenied) {
+        showPermissionDialog();
+      }
+    } else if (status.isPermanentlyDenied) {
+      showPermissionDialog();
+    }
   }
 
-  void startScanning() {
+  void startQrListening() async {
+    final status = await Permission.camera.status;
+
+    if (status.isDenied || status.isPermanentlyDenied) {
+      final result = await Permission.camera.request();
+
+      if (!result.isGranted) {
+        Get.snackbar(
+          "Permission Denied",
+          "Camera permission is required to scan QR codes.",
+        );
+        return;
+      }
+    }
+
     qrController.scannedDataStream.listen((scanData) {
       final scannedId = int.tryParse(scanData.code ?? '');
+
       if (scannedId != null) {
         final product = getProductById(scannedId);
         if (product != null) {
           qrController.pauseCamera();
-          Get.snackbar(
-            "Product Found",
-            product.name,
-            backgroundColor: Colors.green,
-            colorText: Colors.white,
-          );
-          navigateToProductDetail(product.id);
+          Get.snackbar("Product Found", product.name);
         } else {
-          Get.snackbar(
-            "Not Found",
-            "No product with ID $scannedId found",
-            backgroundColor: Colors.red,
-            colorText: Colors.white,
-          );
+          Get.snackbar("Not Found", "No product with ID $scannedId found");
         }
       } else {
-        Get.snackbar(
-          "Invalid QR",
-          "The scanned QR is not valid.",
-          backgroundColor: Colors.orange,
-          colorText: Colors.white,
-        );
+        Get.snackbar("Invalid QR", "The scanned QR is not valid.");
       }
     });
   }
 
-  void resumeCamera() {
-    qrController.resumeCamera();
+  void showPermissionDialog() {
+    Get.defaultDialog(
+      title: "Camera Permission Required",
+      content: TextConstant(
+        textAlign: TextAlign.center,
+        title:
+            "To scan products, you need to grant camera access.\nPlease enable it in app settings.",
+      ),
+      textConfirm: "Open Settings",
+      textCancel: "Cancel",
+      onConfirm: () {
+        Get.back();
+        openAppSettings();
+      },
+      onCancel: () => Get.back(),
+    );
   }
 
-  @override
-  void onClose() {
-    qrController.dispose();
-    super.onClose();
+  void resumeCamera() {
+    qrController.resumeCamera();
   }
 }
