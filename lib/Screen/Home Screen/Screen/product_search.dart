@@ -20,6 +20,7 @@ class ProductSearch extends StatelessWidget {
     final HomeController productController = Get.put(HomeController());
 
     return Scaffold(
+      backgroundColor: themeController.whiteColor,
       appBar: commonAppbar(
         title: 'Search Product',
         themeController: themeController,

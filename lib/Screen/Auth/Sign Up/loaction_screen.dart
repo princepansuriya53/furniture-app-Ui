@@ -16,6 +16,7 @@ class LocationScreen extends StatelessWidget {
     ThemeController themeController = ThemeController();
 
     return Scaffold(
+      backgroundColor: themeController.whiteColor,
       appBar: commonAppbar(
         title: '',
         elevation: 0,

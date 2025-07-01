@@ -130,6 +130,7 @@ class ThemeController extends GetxController {
   //----------------------------------------------------------------------------------------------------------//
 
   ThemeData get darkTheme => ThemeData(
+  
     brightness: Brightness.dark,
     textSelectionTheme: TextSelectionThemeData(
       selectionHandleColor: whiteColor,
@@ -141,9 +142,9 @@ class ThemeController extends GetxController {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
     ),
     appBarTheme: AppBarTheme(
+      elevation: 0.5,
       backgroundColor: blackColor,
       systemOverlayStyle: SystemUiOverlayStyle.light,
-      elevation: 0.5,
       shadowColor: blackColor.withAlpha(80),
     ),
     colorScheme: ColorScheme.dark(

@@ -15,6 +15,7 @@ class ProductScanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: themeController.whiteColor,
       appBar: commonAppbar(
         title: 'Scan Product',
         themeController: themeController,

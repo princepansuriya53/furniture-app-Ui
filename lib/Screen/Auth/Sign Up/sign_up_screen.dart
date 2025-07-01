@@ -18,6 +18,7 @@ class RegistrionScreen extends StatelessWidget {
     final ThemeController themeController = ThemeController();
 
     return Scaffold(
+      backgroundColor: themeController.whiteColor,
       appBar: commonAppbar(
         title: "",
         elevation: 0,

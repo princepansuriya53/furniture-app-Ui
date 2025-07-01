@@ -15,11 +15,12 @@ class VerificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     ThemeController themeController = ThemeController();
     return Scaffold(
+      backgroundColor: themeController.whiteColor,
       appBar: commonAppbar(
         title: '',
         elevation: 0,
         themeController: themeController,
-      ),                           
+      ),
       body: screenPadding(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

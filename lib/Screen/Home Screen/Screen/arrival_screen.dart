@@ -16,6 +16,7 @@ class ArrivalScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: themeController.whiteColor,
       appBar: commonAppbar(
         title: 'New Arrivals',
         themeController: themeController,

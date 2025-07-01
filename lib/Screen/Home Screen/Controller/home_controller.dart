@@ -1,13 +1,14 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:furniture_app/Model/product_model.dart';
-import 'package:furniture_app/Common/text_constant.dart';
 import 'package:furniture_app/Constants/app_assets.dart';
+import 'package:furniture_app/Model/product_model.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 
 class HomeController extends GetxController {
+  final selectedColorIndex = 0.obs;
   final RxInt selectedIndex = 0.obs;
+  final RxInt isSelected = 0.obs;
   late QRViewController qrController;
   final RxBool isLoading = false.obs;
   final RxList<Product> products = <Product>[].obs;
@@ -27,6 +28,17 @@ class HomeController extends GetxController {
     AppAssets.sofaChair,
     AppAssets.sleepingChair,
   ];
+
+  final List<Color> colors = [
+    Colors.yellow,
+    Colors.teal,
+    Colors.indigo.shade900,
+    Colors.orange,
+  ];
+
+  void selectColor(int index) {
+    selectedIndex.value = index;
+  }
 
   final CategoriesList = [
     {
@@ -215,6 +227,7 @@ class HomeController extends GetxController {
 
   void startScanning() async {
     final status = await Permission.camera.status;
+    print("Camera permission status: $status");
     if (status.isGranted) {
       startQrListening();
     } else if (status.isDenied || status.isRestricted || status.isLimited) {
@@ -222,10 +235,10 @@ class HomeController extends GetxController {
       if (result.isGranted) {
         startQrListening();
       } else if (result.isPermanentlyDenied) {
-        showPermissionDialog();
+        openAppSettings();
       }
     } else if (status.isPermanentlyDenied) {
-      showPermissionDialog();
+      openAppSettings();
     }
   }
 
@@ -259,24 +272,6 @@ class HomeController extends GetxController {
         Get.snackbar("Invalid QR", "The scanned QR is not valid.");
       }
     });
-  }
-
-  void showPermissionDialog() {
-    Get.defaultDialog(
-      title: "Camera Permission Required",
-      content: TextConstant(
-        textAlign: TextAlign.center,
-        title:
-            "To scan products, you need to grant camera access.\nPlease enable it in app settings.",
-      ),
-      textConfirm: "Open Settings",
-      textCancel: "Cancel",
-      onConfirm: () {
-        Get.back();
-        openAppSettings();
-      },
-      onCancel: () => Get.back(),
-    );
   }
 
   void resumeCamera() {

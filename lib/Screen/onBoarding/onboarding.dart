@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:furniture_app/Constants/app_assets.dart';
 import 'package:furniture_app/Screen/onBoarding/Controller/slider_controller.dart';
 import 'package:furniture_app/Screen/onBoarding/page_slider.dart';
+import 'package:furniture_app/Theme/theme_controller.dart';
 import 'package:get/get.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -23,9 +24,12 @@ class OnboardingScreenState extends State<OnboardingScreen> {
       Get.offAll(() => const PageSlider());
     });
   }
-
+  ThemeController themeController = ThemeController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: SvgPicture.asset(AppAssets.appLogo)));
+    return Scaffold(
+      backgroundColor: themeController.whiteColor,
+      body: Center(child: SvgPicture.asset(AppAssets.appLogo)),
+    );
   }
 }

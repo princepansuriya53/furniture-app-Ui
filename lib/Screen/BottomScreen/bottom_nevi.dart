@@ -16,6 +16,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: themeController.whiteColor,
       appBar: controller.currentIndex == 2
           ? commonAppbar(
               title: 'Notification',

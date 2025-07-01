@@ -18,6 +18,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeController themeController = ThemeController();
     return Scaffold(
+      backgroundColor: themeController.whiteColor,
       body: screenPadding(
         child: SingleChildScrollView(
           child: Column(

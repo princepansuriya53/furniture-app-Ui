@@ -13,6 +13,7 @@ class NotificationsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: themeController.whiteColor,
       body: screenPadding(
         child: Column(
           children: [

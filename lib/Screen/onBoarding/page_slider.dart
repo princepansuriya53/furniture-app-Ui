@@ -13,7 +13,7 @@ class PageSlider extends StatelessWidget {
     final OnboardingController controller = Get.put(OnboardingController());
 
     return Scaffold(
-      backgroundColor: themeController.blackColor,
+      backgroundColor: themeController.whiteColor,
       body: Column(
         children: [
           Expanded(

@@ -1,17 +1,18 @@
+import 'package:furniture_app/Screen/Home%20Screen/product_view.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:furniture_app/Common/text_constant.dart';
-import 'package:furniture_app/Common/textfield_constant.dart';
-import 'package:furniture_app/Common/widget_constant.dart';
-import 'package:furniture_app/Constants/app_assets.dart';
 import 'package:furniture_app/Global/globel_use.dart';
-import 'package:furniture_app/Screen/Home%20Screen/Controller/home_controller.dart';
+import 'package:furniture_app/Common/text_constant.dart';
+import 'package:furniture_app/Constants/app_assets.dart';
+import 'package:furniture_app/Common/widget_constant.dart';
 import 'package:furniture_app/Screen/Home%20Screen/Screen/arrival_screen.dart';
 import 'package:furniture_app/Screen/Home%20Screen/Screen/product_search.dart';
+import 'package:furniture_app/Screen/Home%20Screen/Controller/home_controller.dart';
 import 'package:furniture_app/Screen/Home%20Screen/Widget/product_scanner.dart';
 import 'package:furniture_app/Screen/Home%20Screen/Widget/product_widget.dart';
+import 'package:furniture_app/Common/textfield_constant.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furniture_app/Theme/theme_controller.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
@@ -24,6 +25,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: themeController.whiteColor,
       body: screenPadding(
         child: SingleChildScrollView(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -206,86 +208,96 @@ class HomeScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final item = categoryItems[index];
 
-                    return Container(
-                      padding: EdgeInsets.all(10.h),
-                      decoration: BoxDecoration(
-                        color: themeController.whiteColor,
-                        borderRadius: BorderRadius.circular(10.r),
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 4,
-                            offset: Offset(0, 2),
-                            color: themeController.blackColor.withValues(
-                              alpha: 0.2,
+                    return GestureDetector(
+                      onTap: () {
+                        Get.to(
+                          transition: Transition.fade,
+                          duration: Duration(milliseconds: 600),
+                          curve: Curves.easeInOutCubicEmphasized,
+                          () => ProductView(productData: categoryItems[index]),
+                        );
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(10.h),
+                        decoration: BoxDecoration(
+                          color: themeController.whiteColor,
+                          borderRadius: BorderRadius.circular(10.r),
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 4,
+                              offset: Offset(0, 2),
+                              color: themeController.blackColor.withValues(
+                                alpha: 0.2,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            height: 80.h,
-                            width: 80.w,
-                            item['image'],
-                            fit: BoxFit.contain,
-                          ),
-                          widthBox(10),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                TextConstant(
-                                  fontSize: 16,
-                                  title: item['name'],
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                heightBox(4),
-                                TextConstant(
-                                  fontSize: 12,
-                                  softWrap: true,
-                                  title: item['Description'],
-                                ),
-                                heightBox(4),
-                                Row(
-                                  children: [
-                                    TextConstant(
-                                      fontSize: 14,
-
-                                      title: item['Price'],
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                    widthBox(8),
-                                    TextConstant(
-                                      fontSize: 12.sp,
-
-                                      title: item['RealPrice'],
-                                      textDecoration:
-                                          TextDecoration.lineThrough,
-                                    ),
-                                    widthBox(8),
-                                    Icon(
-                                      Icons.star,
-                                      size: 14.sp,
-                                      color: themeController.primaryColor,
-                                    ),
-                                    TextConstant(
-                                      fontSize: 12,
-
-                                      title: item['Ratings'],
-                                    ),
-                                    widthBox(6),
-                                    TextConstant(
-                                      fontSize: 11,
-
-                                      color: themeController.greyColor,
-                                      title: "(${item['Reviews']} revixews)",
-                                    ),
-                                  ],
-                                ),
-                              ],
+                          ],
+                        ),
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              height: 80.h,
+                              width: 80.w,
+                              item['image'],
+                              fit: BoxFit.contain,
                             ),
-                          ),
-                        ],
+                            widthBox(10),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextConstant(
+                                    fontSize: 16,
+                                    title: item['name'],
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  heightBox(4),
+                                  TextConstant(
+                                    fontSize: 12,
+                                    softWrap: true,
+                                    title: item['Description'],
+                                  ),
+                                  heightBox(4),
+                                  Row(
+                                    children: [
+                                      TextConstant(
+                                        fontSize: 14,
+
+                                        title: item['Price'],
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                      widthBox(8),
+                                      TextConstant(
+                                        fontSize: 12.sp,
+
+                                        title: item['RealPrice'],
+                                        textDecoration:
+                                            TextDecoration.lineThrough,
+                                      ),
+                                      widthBox(8),
+                                      Icon(
+                                        Icons.star,
+                                        size: 14.sp,
+                                        color: themeController.primaryColor,
+                                      ),
+                                      TextConstant(
+                                        fontSize: 12,
+
+                                        title: item['Ratings'],
+                                      ),
+                                      widthBox(6),
+                                      TextConstant(
+                                        fontSize: 11,
+
+                                        color: themeController.greyColor,
+                                        title: "(${item['Reviews']} revixews)",
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },

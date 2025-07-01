@@ -14,6 +14,7 @@ class BiometricScreen extends StatelessWidget {
     ThemeController themeController = ThemeController();
 
     return Scaffold(
+      backgroundColor: themeController.whiteColor,
       appBar: commonAppbar(
         title: '',
         themeController: themeController,
