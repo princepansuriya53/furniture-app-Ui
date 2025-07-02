@@ -12,7 +12,7 @@ import 'package:furniture_app/Screen/Layout%20Screen/Controller/layout_controlle
 class LayoutScreen extends StatelessWidget {
   LayoutScreen({super.key});
 
-  final ThemeController themeController = ThemeController();
+  final ThemeController themeController = Get.find<ThemeController>();
   final LayoutController layoutController = Get.put(LayoutController());
 
   @override

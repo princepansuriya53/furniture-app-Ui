@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furniture_app/Common/text_constant.dart';
 import 'package:furniture_app/Theme/theme_controller.dart';
+import 'package:get/get.dart';
 
 class TextFieldConstant extends StatelessWidget {
   const TextFieldConstant({
@@ -68,7 +69,7 @@ class TextFieldConstant extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeController themeController = ThemeController();
+    final ThemeController themeController = Get.find<ThemeController>();
 
     return TextFormField(
       onTap: onTap,

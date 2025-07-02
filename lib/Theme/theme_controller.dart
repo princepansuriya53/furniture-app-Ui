@@ -86,6 +86,7 @@ class ThemeController extends GetxController {
 
   ThemeData get lightTheme => ThemeData(
     brightness: Brightness.light,
+    splashColor: Colors.transparent,
     primaryColor: secondaryColors.value,
     scaffoldBackgroundColor: whiteColor,
     dialogTheme: DialogThemeData(
@@ -130,7 +131,7 @@ class ThemeController extends GetxController {
   //----------------------------------------------------------------------------------------------------------//
 
   ThemeData get darkTheme => ThemeData(
-  
+    splashColor: Colors.transparent,
     brightness: Brightness.dark,
     textSelectionTheme: TextSelectionThemeData(
       selectionHandleColor: whiteColor,

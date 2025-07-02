@@ -1,10 +1,11 @@
-import 'package:furniture_app/Common/text_constant.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:furniture_app/Common/widget_constant.dart';
+import 'package:furniture_app/Common/text_constant.dart';
 import 'package:furniture_app/Theme/theme_controller.dart';
+import 'package:furniture_app/Common/widget_constant.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:furniture_app/Screen/Home%20Screen/Screen/review_screen.dart';
 import 'package:furniture_app/Screen/Home%20Screen/Controller/home_controller.dart';
 
 class ProductView extends StatelessWidget {
@@ -12,11 +13,10 @@ class ProductView extends StatelessWidget {
 
   ProductView({super.key, required this.productData});
 
-  final ThemeController themeController = ThemeController();
+  final ThemeController themeController = Get.find<ThemeController>();
   final HomeController homeController = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
-    print('Product Data: $productData');
     return Scaffold(
       backgroundColor: themeController.whiteColor,
       appBar: commonAppbar(title: '', themeController: themeController),
@@ -135,26 +135,99 @@ class ProductView extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 10.h),
-
-              SizedBox(height: 20.h),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: themeController.primaryColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.r),
-                  ),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 50.w,
-                    vertical: 15.h,
-                  ),
+              heightBox(10),
+              Container(
+                height: 50.h,
+                padding: EdgeInsets.symmetric(horizontal: 5.w),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.r),
+                  color: themeController.GreayColor.withValues(alpha: 0.2),
                 ),
-                child: TextConstant(
-                  title: 'Add to Cart',
-                  fontSize: 16.sp,
-                  color: themeController.whiteColor,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.star_outlined,
+                          color: themeController.primaryColor,
+                        ),
+                        widthBox(8),
+                        TextConstant(
+                          fontWeight: FontWeight.bold,
+                          title: productData['Ratings'],
+                        ),
+                        widthBox(5),
+                        TextConstant(
+                          title: 'Ratings',
+                          color: themeController.greyColor,
+                        ),
+                      ],
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Get.to(
+                          transition: Transition.rightToLeft,
+                          duration: Duration(milliseconds: 500),
+                          () => ReviewScreen(productData: productData),
+                        );
+                      },
+                      child: Row(
+                        children: [
+                          TextConstant(title: productData['Reviews']),
+                          widthBox(5),
+                          TextConstant(
+                            title: "Reviews",
+                            color: themeController.greyColor,
+                          ),
+                          widthBox(10),
+                          Icon(size: 15.sp, Icons.arrow_forward_ios),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
+              ),
+              heightBox(20),
+              TextConstant(
+                fontSize: 20,
+                title: 'Description',
+                fontWeight: FontWeight.w600,
+              ),
+              heightBox(10),
+              TextConstant(
+                softWrap: true,
+                title: productData['Description'],
+                color: themeController.blackColor.withValues(alpha: 0.4),
+              ),
+              heightBox(20),
+              elevatedButton(
+                title: 'Add to cart',
+                onPressed: () {
+                  showCustomBottomSheet(
+                    title: 'Item successfully added!',
+                    themeController,
+                    children: [
+                      heightBox(20),
+                      elevatedButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        title: 'Continue shopping',
+                      ),
+                      heightBox(20),
+                      elevatedButton(
+                        isBorder: true,
+                        onPressed: () {
+                          Get.back();
+                        },
+                        title: 'View cart',
+                        backGroundColor: themeController.whiteColor,
+                      ),
+                      heightBox(20),
+                    ],
+                  );
+                },
               ),
             ],
           ),

@@ -9,7 +9,7 @@ class PageSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeController themeController = ThemeController();
+    final ThemeController themeController = Get.find<ThemeController>();
     final OnboardingController controller = Get.put(OnboardingController());
 
     return Scaffold(

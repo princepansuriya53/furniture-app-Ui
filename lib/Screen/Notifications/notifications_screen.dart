@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:furniture_app/Common/text_constant.dart';
 import 'package:furniture_app/Constants/app_assets.dart';
@@ -9,7 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NotificationsScreen extends StatelessWidget {
   NotificationsScreen({super.key});
-  final ThemeController themeController = ThemeController();
+  final ThemeController themeController = Get.find<ThemeController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -12,7 +12,7 @@ class ProductCard extends StatelessWidget {
 
   ProductCard({Key? key, required this.product});
 
-  final ThemeController themeController = ThemeController();
+  final ThemeController themeController = Get.find<ThemeController>();
   final HomeController productController = Get.find<HomeController>();
 
   @override

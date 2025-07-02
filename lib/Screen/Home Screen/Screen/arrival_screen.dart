@@ -10,7 +10,7 @@ import 'package:furniture_app/Screen/Home%20Screen/Controller/home_controller.da
 class ArrivalScreen extends StatelessWidget {
   ArrivalScreen({super.key});
 
-  final ThemeController themeController = ThemeController();
+  final ThemeController themeController = Get.find<ThemeController>();
   final HomeController controller = Get.put(HomeController());
 
   @override

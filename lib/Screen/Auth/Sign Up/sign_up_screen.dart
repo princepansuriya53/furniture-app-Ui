@@ -15,7 +15,7 @@ class RegistrionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeController themeController = ThemeController();
+    final ThemeController themeController = Get.find<ThemeController>();
 
     return Scaffold(
       backgroundColor: themeController.whiteColor,

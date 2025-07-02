@@ -4,8 +4,7 @@ import 'package:furniture_app/Common/text_constant.dart';
 import 'package:furniture_app/Common/widget_constant.dart';
 import 'package:furniture_app/Screen/onBoarding/Controller/slider_controller.dart';
 import 'package:furniture_app/Theme/theme_controller.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class OnboardingPage extends StatelessWidget {
@@ -20,7 +19,7 @@ class OnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeController themeController = ThemeController();
+    final ThemeController themeController = Get.find<ThemeController>();
     return Stack(
       children: [
         Stack(
@@ -114,7 +113,7 @@ class OnboardingPage extends StatelessWidget {
   }
 
   Widget buildNextButton(BuildContext context) {
-    final ThemeController themeController = ThemeController();
+    final ThemeController themeController = Get.find<ThemeController>();
     return Obx(() {
       final isLast =
           controller.currentIndex.value ==

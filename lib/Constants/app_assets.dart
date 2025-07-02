@@ -18,6 +18,7 @@ class AppAssets {
   static const String sofa6 = '${images}sofa_6.png';
   static const String sofa7 = '${images}sofa_7.png';
   static const String sofa8 = '${images}sofa_8.png';
+  static const String person = '${images}person.svg';
   static const String Living = '${images}Living.png';
   static const String BedRoom = '${images}Bedroom.png';
   static const String Kitchen = '${images}Kitchen.png';

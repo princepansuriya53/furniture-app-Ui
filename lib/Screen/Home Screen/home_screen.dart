@@ -19,7 +19,7 @@ import 'package:lucide_icons/lucide_icons.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  final ThemeController themeController = ThemeController();
+  final ThemeController themeController = Get.find<ThemeController>();
   final HomeController productController = Get.put(HomeController());
 
   @override
@@ -164,6 +164,7 @@ class HomeScreen extends StatelessWidget {
                   ) {
                     final isSelected =
                         productController.selectedIndex.value == index;
+
                     return GestureDetector(
                       onTap: () => productController.setCategoriesIndex(index),
                       child: AnimatedContainer(
@@ -207,12 +208,11 @@ class HomeScreen extends StatelessWidget {
                   separatorBuilder: (_, __) => heightBox(10),
                   itemBuilder: (context, index) {
                     final item = categoryItems[index];
-
                     return GestureDetector(
                       onTap: () {
                         Get.to(
                           transition: Transition.fade,
-                          duration: Duration(milliseconds: 600),
+                          duration: Duration(milliseconds: 300),
                           curve: Curves.easeInOutCubicEmphasized,
                           () => ProductView(productData: categoryItems[index]),
                         );

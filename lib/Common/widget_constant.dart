@@ -48,7 +48,7 @@ Widget svgIconWidget({
 }
 
 Widget backButton() {
-  return GestureDetector(
+  return InkWell(
     onTap: () => Get.back(),
     child: Icon(size: 20.sp, CupertinoIcons.arrow_left),
   );
@@ -231,7 +231,6 @@ Future showCustomBottomSheet(
     enableDrag: isDismissibleBox,
     isDismissible: isDismissibleBox,
     showDragHandle: isDismissibleBox,
-    backgroundColor: themeController.greyColor,
     builder: (context) {
       return Padding(
         padding: MediaQuery.of(context).viewInsets,
@@ -515,6 +514,9 @@ Widget elevatedButton({
         foregroundColor: foregroundColor ?? themeController.blackColor,
         backgroundColor: backGroundColor ?? themeController.primaryColor,
         shape: RoundedRectangleBorder(
+          side: isBorder == true
+              ? BorderSide(width: 1.w, color: themeController.primaryColor)
+              : BorderSide.none,
           borderRadius: BorderRadius.circular(15.r),
         ),
       ),
