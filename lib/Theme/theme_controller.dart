@@ -93,9 +93,7 @@ class ThemeController extends GetxController {
       backgroundColor: whiteColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
     ),
-    textSelectionTheme: TextSelectionThemeData(
-      selectionHandleColor: whiteColor,
-    ),
+
     appBarTheme: AppBarTheme(
       backgroundColor: whiteColor,
       systemOverlayStyle: SystemUiOverlayStyle.dark,
@@ -131,11 +129,8 @@ class ThemeController extends GetxController {
   //----------------------------------------------------------------------------------------------------------//
 
   ThemeData get darkTheme => ThemeData(
-    splashColor: Colors.transparent,
     brightness: Brightness.dark,
-    textSelectionTheme: TextSelectionThemeData(
-      selectionHandleColor: whiteColor,
-    ),
+    splashColor: Colors.transparent,
     primaryColor: secondaryColors.value,
     scaffoldBackgroundColor: blackColor,
     dialogTheme: DialogThemeData(

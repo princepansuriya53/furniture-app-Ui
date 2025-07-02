@@ -1,9 +1,10 @@
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:furniture_app/Common/widget_constant.dart';
 import 'package:furniture_app/Screen/Cart/Controller/cart_controller.dart';
 import 'package:furniture_app/Screen/Cart/Widget/cart_item_widget.dart';
+import 'package:furniture_app/Screen/Cart/Screens/cart_details.dart';
 import 'package:furniture_app/Theme/theme_controller.dart';
-import 'package:get/get.dart';
 
 class CartScreen extends StatelessWidget {
   final ThemeController themeController = Get.find<ThemeController>();
@@ -15,7 +16,7 @@ class CartScreen extends StatelessWidget {
       body: screenPadding(
         child: Column(
           children: [
-            Expanded(
+            Flexible(
               child: Obx(
                 () => ListView.builder(
                   itemCount: cartController.cartItems.length,
@@ -34,7 +35,11 @@ class CartScreen extends StatelessWidget {
                 ),
               ),
             ),
-            elevatedButton(title: 'Proceed to checkout', onPressed: () {}),
+            elevatedButton(
+              title: 'Proceed to checkout',
+              onPressed: () => Get.to(() => CartDetails()),
+            ),
+            heightBox(30),
           ],
         ),
       ),

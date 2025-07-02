@@ -74,10 +74,9 @@ class CartItemWidget extends StatelessWidget {
                       title: item.name,
                       fontWeight: FontWeight.w500,
                     ),
-                    IconButton(
-                      onPressed: onRemove,
-                      padding: EdgeInsets.zero,
-                      icon: Icon(LucideIcons.xCircle, size: 20.sp),
+                    InkWell(
+                      onTap: onRemove,
+                      child: Icon(LucideIcons.xCircle, size: 20.sp),
                     ),
                   ],
                 ),

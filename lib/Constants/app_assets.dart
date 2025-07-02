@@ -5,11 +5,13 @@ class AppAssets {
   static const String bead = '${icons}baed.svg';
   static const String char = '${icons}chear.svg';
   static const String stared = '${icons}stard.svg';
+  static const String payedIcons = '${icons}payed.svg';
   static const String sofaChair = '${icons}sofa_chear.svg';
   static const String dinerTable = '${icons}Daining_table.svg';
   static const String InviteIcons = '${icons}invite_icons.svg';
   static const String DiscountIcon = '${icons}discount_icon.svg';
   static const String sleepingChair = '${icons}sleeping_chair.svg';
+  static const String CircularLocation = '${icons}circular_location.svg';
   static const String sofa1 = '${images}sofa_1.png';
   static const String sofa2 = '${images}sofa_2.png';
   static const String sofa3 = '${images}sofa_3.png';

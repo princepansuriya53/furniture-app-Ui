@@ -1,7 +1,9 @@
+import 'package:furniture_app/Theme/theme_controller.dart';
+import 'package:get/get.dart';
+
 import 'shared_prefrence_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:furniture_app/Screen/BottomScreen/bottom_nevi.dart';
 
 Future<void> main() async {
@@ -11,7 +13,8 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final ThemeController themeController = Get.put(ThemeController());
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {

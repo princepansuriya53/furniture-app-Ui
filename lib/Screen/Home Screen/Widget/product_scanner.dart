@@ -10,7 +10,7 @@ class ProductScanner extends StatelessWidget {
   ProductScanner({super.key});
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   final HomeController homeController = Get.find<HomeController>();
-  final ThemeController themeController = Get.put(ThemeController());
+  final ThemeController themeController = Get.find<ThemeController>();
 
   @override
   Widget build(BuildContext context) {

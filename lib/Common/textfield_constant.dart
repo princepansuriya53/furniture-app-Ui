@@ -85,9 +85,9 @@ class TextFieldConstant extends StatelessWidget {
       keyboardType: keyboardType,
       cursorOpacityAnimates: true,
       onFieldSubmitted: onFieldSubmit,
-      textInputAction: textInputAction,
       inputFormatters: inputFormatters,
-      cursorColor: themeController.blackColor,
+      textInputAction: textInputAction,
+      // cursorColor: themeController.blackColor,
       style: textStyle(
         fontWeight: hintFontWeight,
         fontSize: hintFontSize ?? 14,
@@ -103,6 +103,7 @@ class TextFieldConstant extends StatelessWidget {
           fontStyle: fontStyle ?? FontStyle.normal,
         ),
         fillColor: themeController.greyColor.withValues(alpha: 0.1),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.r)),
         disabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.r),
           borderSide: BorderSide(
@@ -128,7 +129,6 @@ class TextFieldConstant extends StatelessWidget {
           borderRadius: BorderRadius.circular(15.r),
           borderSide: const BorderSide(color: Colors.red, width: 1.0),
         ),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.r)),
         prefixIcon: prefixIcon != null
             ? (prefixIcon is IconData
                   ? GestureDetector(onTap: prefixOnTap, child: Icon(prefixIcon))

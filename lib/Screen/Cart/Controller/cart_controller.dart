@@ -1,24 +1,15 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CartItem {
-  final String id;
-  final String name;
-  final String image;
-  final double price;
-  final double originalPrice;
-  int quantity;
-
-  CartItem({
-    required this.id,
-    required this.name,
-    required this.image,
-    required this.price,
-    required this.originalPrice,
-    this.quantity = 1,
-  });
-}
-
 class CartController extends GetxController {
+  // Form key
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  // Text Controllers
+  final fullNameController = TextEditingController();
+  final locationController = TextEditingController();
+  final phoneController = TextEditingController();
+
   final RxList<CartItem> cartItems = <CartItem>[
     CartItem(
       id: '1',
@@ -66,4 +57,30 @@ class CartController extends GetxController {
       (sum, item) => sum + (item.price * item.quantity),
     );
   }
+
+  @override
+  void onClose() {
+    fullNameController.dispose();
+    locationController.dispose();
+    phoneController.dispose();
+    super.onClose();
+  }
+}
+
+class CartItem {
+  final String id;
+  final String name;
+  final String image;
+  final double price;
+  final double originalPrice;
+  int quantity;
+
+  CartItem({
+    required this.id,
+    required this.name,
+    required this.image,
+    required this.price,
+    required this.originalPrice,
+    this.quantity = 1,
+  });
 }

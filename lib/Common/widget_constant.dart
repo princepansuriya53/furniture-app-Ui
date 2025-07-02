@@ -496,13 +496,14 @@ Widget elevatedButton({
   Color? foregroundColor,
   bool? isBorder = false,
   bool? isGradient = true,
+  BorderRadius? borderRadius,
   List<Color>? colorsGradient,
   EdgeInsetsGeometry? padding,
   required void Function()? onPressed,
 }) {
   Get.lazyPut(() => ThemeController());
 
-  ThemeController themeController = Get.find<ThemeController>();
+  final ThemeController themeController = Get.find<ThemeController>();
 
   return SizedBox(
     height: height ?? 50.h,
@@ -514,10 +515,10 @@ Widget elevatedButton({
         foregroundColor: foregroundColor ?? themeController.blackColor,
         backgroundColor: backGroundColor ?? themeController.primaryColor,
         shape: RoundedRectangleBorder(
+          borderRadius: borderRadius ?? BorderRadius.circular(15.r),
           side: isBorder == true
               ? BorderSide(width: 1.w, color: themeController.primaryColor)
               : BorderSide.none,
-          borderRadius: BorderRadius.circular(15.r),
         ),
       ),
       child: TextConstant(

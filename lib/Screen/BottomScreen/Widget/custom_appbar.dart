@@ -12,7 +12,7 @@ AppBar buildAppBar(int index, ThemeController themeController) {
       );
     case 3:
       return commonAppbar(
-        title: 'Cart',
+        title: 'My Cart',
         isLeadingEnable: false,
         themeController: themeController,
       );
